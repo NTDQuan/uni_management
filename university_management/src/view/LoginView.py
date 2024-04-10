@@ -1,41 +1,62 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt
 
-class LoginView():
+class LoginView(QWidget):
     def __init__(self):
-        self.__desktop_widget =  QDesktopWidget()
-        self.__window = QWidget()
-        self.__screen_geometry = self.__desktop_widget.screenGeometry()
-        self.__window.setGeometry(100, 100, 400 , 500)
-        self.__window.setWindowTitle("Uni Management")
-        self.__window.setFixedSize(900, 800)
-        self.__window_geometry = self.__window.geometry()
+        super().__init__()
 
-        #center window
-        x_pos = int((self.__screen_geometry.width() - self.__window_geometry.width()) / 2)
-        y_pos = int((self.__screen_geometry.height() - self.__window_geometry.height()) / 2)
-        self.__window.move(x_pos, y_pos)
+        # Set window properties
+        self.setFixedSize(800, 500)
+        self.setWindowTitle("Uni Management")
 
-        self.__layout = QFormLayout()
+        # Create main layout (horizontal)
+        self.main_layout = QHBoxLayout()
+        self.setLayout(self.main_layout)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.__label = QLabel(self.__window)
-        self.__label.setText("Đăng nhập")
-        self.__label.setFont(QFont("Poppin", 16))
+        # Image widget (replace with your actual image loading logic)
+        self.image_label = QLabel()
+        self.image_label.setFixedSize(400, 500)
+        self.image_label.setStyleSheet("padding: 0px; margin: 0px; border-image: url(./asserts/login_cover.jpg) 0 0 0 400")  
 
-        self.__usernameLineEdit = QLineEdit()
-        self.__usernameLineEdit.setFixedSize(200, 30)
+        self.right_half_widget = QWidget(self)
+        self.right_half_widget.setFixedSize(400, 500)
+        self.right_half_layout = QVBoxLayout(self.right_half_widget)
+        self.right_half_layout.setContentsMargins(0, 0, 0, 0)
 
-        self.__passwordLineEdit = QLineEdit()
-        self.__passwordLineEdit.setFixedSize(200, 30)
+        # Existing login layout (move this inside widget_area)
+        self.label = QLabel("Đăng nhập")
+        self.label.setFont(QFont("Poppin", 24))
+        self.label.setAlignment(Qt.AlignCenter)
         
-        self.__layout.addRow(self.__label)
-        self.__layout.addRow('' ,self.__usernameLineEdit)
-        self.__layout.addRow('' ,self.__passwordLineEdit)
+        self.usernameLineEdit = QLineEdit()
+        self.usernameLineEdit.setFixedSize(200, 60)
+        self.usernameLineEdit.setAlignment(Qt.AlignHCenter)
 
-        self.__window.setLayout(self.__layout)
+        self.passwordLineEdit = QLineEdit()
+        self.passwordLineEdit.setEchoMode(QLineEdit.Password)
+        self.passwordLineEdit.setFixedSize(200, 60)
+        self.passwordLineEdit.setAlignment(Qt.AlignHCenter)
 
+        self.loginButton = QPushButton("Đăng nhập")
+        self.loginButton.setFixedSize(200, 60)
+        self.loginButton.clicked.connect(self.handleLoginButtonClick)
 
+        self.right_half_layout.addWidget(self.label, alignment=Qt.AlignHCenter)
+        self.right_half_layout.addWidget(self.usernameLineEdit, alignment=Qt.AlignHCenter)
+        self.right_half_layout.addWidget(self.passwordLineEdit, alignment=Qt.AlignHCenter)
+        self.right_half_layout.addWidget(self.loginButton, alignment=Qt.AlignHCenter)
+
+        # Add image and widget area to main layout
+        self.main_layout.addWidget(self.image_label)
+        self.main_layout.addWidget(self.right_half_widget)
+
+    def handleLoginButtonClick(self):
+        loginInfo = [self.usernameLineEdit.text(), self.passwordLineEdit.text()]
+        print(loginInfo)
+        return loginInfo
 
     def showLogin(self):
-        self.__window.show()
+        self.show()
