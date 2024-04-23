@@ -16,7 +16,7 @@ class LoginView(QWidget):
         self.setLayout(self.main_layout)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
 
-        # Image widget (replace with your actual image loading logic)
+        # Image widget (replace with your actual image loading authentication)
         self.image_label = QLabel()
         self.image_label.setFixedSize(400, 500)
         self.image_label.setStyleSheet("padding: 0px; margin: 0px; border-image: url(./asserts/login_cover.jpg) 0 0 0 400")  
