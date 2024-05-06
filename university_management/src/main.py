@@ -4,6 +4,7 @@ from database.CreateTable import create_all_table
 from controller.authentication.Authenticator import Authentication
 from controller.user_management.UserCommand import Invoker, CreateUserCommand, DeleteUserCommand
 from controller.major_management import MajorCommand
+from controller.class_management import ClassCommand
 from config import state
 from model.Model import *
 import sys
@@ -40,6 +41,18 @@ major_info = {
     "major_name": "Kỹ thuật máy tính"
 }
 
+class_info = {
+    "class_name": "CS111",
+    "semester": 1,
+    "year": 2024,
+    "lecturer_id": None,
+    "course_id": 1,
+    "status": "ONGOING",
+    "start_period": 1,
+    "end_period": 5,
+    "day": 2
+}
+
 def run():
     create_all_table()
     auth = Authentication()
@@ -53,10 +66,10 @@ def run():
     invoker.createMajor()
     """
 
-    command = MajorCommand.DeleteMajorCommand(1)
+    invoker = ClassCommand.Invoker()
+    command = ClassCommand.DeleteClassCommand("CS111")
     invoker.set_on_start(command)
-    invoker.deleteCourse()
-
+    invoker.deleteClass()
     """
     invoker = Invoker()
     command = CreateUserCommand(user, per_info)

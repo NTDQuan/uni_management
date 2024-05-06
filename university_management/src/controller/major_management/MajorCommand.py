@@ -39,7 +39,7 @@ class Invoker:
         if isinstance(self._on_start, MajorCommand):
             self._on_start.execute()
 
-    def deleteCourse(self) -> None:
+    def deleteMajor(self) -> None:
         print('Start deleting')
         if isinstance(self._on_start, MajorCommand):
             self._on_start.execute()
