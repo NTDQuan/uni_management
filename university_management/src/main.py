@@ -52,7 +52,7 @@ class_info = {
     "end_period": 5,
     "day": 2
 }
-
+'''
 def run():
     create_all_table()
     auth = Authentication()
@@ -81,26 +81,19 @@ def run():
     invoker.deleteUser() 
     
     """
-
-
-
-
-
-
-if __name__ == "__main__":
-    run()
-
-
 '''
-def main():
+
+def run():
     app = QApplication(sys.argv)
-    mysql_pooling = ConnectionPoolHolder().getConnectionPool
     login_view = LoginView()
     login_view.showLogin()
     sys.exit(app.exec_())
 
+def main():
+    run()
+
 if __name__ == '__main__':
     main()
 
-'''
+
 

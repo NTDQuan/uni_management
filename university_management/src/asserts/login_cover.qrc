@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="login_cover_img">
+    <file>login_cover.jpg</file>
+  </qresource>
+</RCC>

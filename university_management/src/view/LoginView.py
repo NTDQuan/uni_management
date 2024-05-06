@@ -3,10 +3,12 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt
 
+from university_management.src.controller.authentication.Authenticator import Authentication
+
 class LoginView(QWidget):
     def __init__(self):
         super().__init__()
-
+        self.authenticator = Authentication()
         # Set window properties
         self.setFixedSize(800, 500)
         self.setWindowTitle("Uni Management")
@@ -55,7 +57,8 @@ class LoginView(QWidget):
 
     def handleLoginButtonClick(self):
         loginInfo = [self.usernameLineEdit.text(), self.passwordLineEdit.text()]
-        print(loginInfo)
+        response = self.authenticator.authentication(self.usernameLineEdit.text(), self.passwordLineEdit.text())
+        print(response)
         return loginInfo
 
     def showLogin(self):
