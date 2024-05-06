@@ -13,7 +13,7 @@ class CreateCourseCommand(CourseCommand):
         self.course_data = course_data
 
     def execute(self) -> None:
-        add_course(self.course_data);
+        add_course(self.course_data)
 
 class DeleteCourseCommand(CourseCommand):
     def __init__(self, courseID):

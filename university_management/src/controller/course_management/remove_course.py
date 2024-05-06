@@ -2,10 +2,10 @@ from database.initSession import session
 from model.Model import Course
 
 def delete_course(courseID: int) -> None:
-    user = session.query(Course).get(courseID)
-    print(user)
-    if user:
-        session.delete(user)
+    course = session.query(Course).get(courseID)
+    print(course)
+    if course:
+        session.delete(course)
         session.commit()
     else:
         # Handle user not found scenario (optional)

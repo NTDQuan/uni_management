@@ -3,7 +3,7 @@ from view.LoginView import LoginView
 from database.CreateTable import create_all_table
 from controller.authentication.Authenticator import Authentication
 from controller.user_management.UserCommand import Invoker, CreateUserCommand, DeleteUserCommand
-from controller.course_management import CourseCommand
+from controller.major_management import MajorCommand
 from config import state
 from model.Model import *
 import sys
@@ -35,21 +35,30 @@ course_info = {
     "major_id": 1
 }
 
+major_info = {
+    "major_id": 1,
+    "major_name": "Kỹ thuật máy tính"
+}
+
 def run():
     create_all_table()
     auth = Authentication()
     auth.authentication("21522499", "1")
     invoker = Invoker()
 
-    invoker = CourseCommand.Invoker()
-    command = CourseCommand.CreateCourseCommand(course_info)
+    invoker = MajorCommand.Invoker()
+    """
+    command = MajorCommand.CreateMajorCommand(major_info)
     invoker.set_on_start(command)
-    invoker.createCourse()
+    invoker.createMajor()
+    """
 
-    command = CourseCommand.DeleteCourseCommand(1)
+    command = MajorCommand.DeleteMajorCommand(1)
     invoker.set_on_start(command)
     invoker.deleteCourse()
+
     """
+    invoker = Invoker()
     command = CreateUserCommand(user, per_info)
     invoker.set_on_start(command)
     invoker.createUser()
@@ -59,6 +68,8 @@ def run():
     invoker.deleteUser() 
     
     """
+
+
 
 
 
