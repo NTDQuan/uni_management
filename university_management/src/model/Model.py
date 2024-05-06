@@ -42,6 +42,7 @@ class Major(Base):
     major_name: Mapped[str] = mapped_column(String(50))
     students: Mapped[List["Student"]] = relationship(back_populates="major")
     lecturers: Mapped[List["Lecturer"]] = relationship(back_populates="major")
+    course: Mapped["Course"] = relationship(back_populates="major")
 
 class Student(Base):
     __tablename__ = "student"
@@ -75,53 +76,26 @@ class Lecturer(Base):
     gender: Mapped["Gender"] = relationship(back_populates="lecturers")
     major_id: Mapped["Major"] = mapped_column(ForeignKey("major.major_id"))
     major: Mapped["Major"] = relationship(back_populates="lecturers")
+    class_id: Mapped[List["Class"]] = relationship(back_populates="rclass")
 
+class Course(Base):
+    __tablename__ = "course"
 
+    course_id: Mapped[int] = mapped_column(primary_key=True)
+    course_name: Mapped[str] = mapped_column(String(50))
+    course_credit: Mapped[int] = mapped_column(Integer)
+    major_id: Mapped[int] = mapped_column(ForeignKey("major.major_id"))
+    major: Mapped["Major"] = relationship(back_populates="course")
+    cclass: Mapped[List["Class"]] = relationship(back_populates="course")
 
-"""
-class Teacher(Base):
-    __tablename__ = "teacher"
+class Class(Base):
+    __tablename__ = "class"
 
-    teacher_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    first_name: Mapped[str] = mapped_column(String(10))
-    last_name: Mapped[str] = mapped_column(String(50))
-    telephone: Mapped[str] = mapped_column(String(11))
-    address: Mapped[str] = mapped_column(String(60))
-    profile_image: Mapped[str] = mapped_column(String(100))
-    gender: Mapped["Gender"] = mapped_column(ForeignKey("gender.gender_id"))
-    major_id: Mapped["Major"] = mapped_column(ForeignKey("major.major_id"))
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.user_id"))
-
-
-class Student(Base):
-    __tablename__ = "student"
-
-    teacher_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    first_name: Mapped[str] = mapped_column(String(10))
-    last_name: Mapped[str] = mapped_column(String(50))
-    telephone: Mapped[str] = mapped_column(String(11))
-    address: Mapped[str] = mapped_column(String(60))
-    profile_image: Mapped[str] = mapped_column(String(100))
-    gender: Mapped["Gender"] = mapped_column(ForeignKey("gender.gender_id"))
-    major: Mapped["Major"] = mapped_column(ForeignKey("major.major_id"))
-    user_id: Mapped["User"] = mapped_column(ForeignKey("user.user_id"))
-
-class Role(Base):
-    __tablename__ = "role"
-
-    role_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    role_name: Mapped[String] = mapped_column(String(10))
-
-class Major(Base):
-    __tablename__ = "major"
-
-    major_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    major_name: Mapped[str] = mapped_column(String(50))
-
-class Gender(Base):
-    __tablename__ = "gender"
-
-    gender_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    gender_name: Mapped[str] = mapped_column(String(6))
-    
-"""
+    class_id: Mapped[int] = mapped_column(primary_key=-True)
+    class_name: Mapped[str] = mapped_column(String(50))
+    semester: Mapped[int] = mapped_column(Integer)
+    year: Mapped[int] = mapped_column(Integer)
+    lecturer_id: Mapped[int] = mapped_column(ForeignKey(Lecturer.lecturer_id))
+    rclass: Mapped["Lecturer"] = relationship(back_populates="class_id")
+    course_id: Mapped[int] = mapped_column(ForeignKey("course.course_id"))
+    course: Mapped["Course"] = relationship(back_populates="cclass")

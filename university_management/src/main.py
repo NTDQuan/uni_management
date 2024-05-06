@@ -3,6 +3,7 @@ from view.LoginView import LoginView
 from database.CreateTable import create_all_table
 from controller.authentication.Authenticator import Authentication
 from controller.user_management.UserCommand import Invoker, CreateUserCommand, DeleteUserCommand
+from controller.course_management import CourseCommand
 from config import state
 from model.Model import *
 import sys
@@ -28,19 +29,37 @@ per_info = {
     "period": 2
 }
 
+course_info = {
+    "course_name": "ky thuat lap trinh python",
+    "course_credit": 4,
+    "major_id": 1
+}
+
 def run():
     create_all_table()
     auth = Authentication()
     auth.authentication("21522499", "1")
     invoker = Invoker()
 
+    invoker = CourseCommand.Invoker()
+    command = CourseCommand.CreateCourseCommand(course_info)
+    invoker.set_on_start(command)
+    invoker.createCourse()
+
+    command = CourseCommand.DeleteCourseCommand(1)
+    invoker.set_on_start(command)
+    invoker.deleteCourse()
+    """
     command = CreateUserCommand(user, per_info)
     invoker.set_on_start(command)
     invoker.createUser()
 
     command = DeleteUserCommand(21522499)
     invoker.set_on_start(command)
-    invoker.deleteUser()
+    invoker.deleteUser() 
+    
+    """
+
 
 
 

@@ -10,12 +10,16 @@ global state
 
 global DBCONFIG
 
+global profile
+
 DBCONFIG = {
     "host": "localhost",
     "user": "root",
     "password": "quanhtht123",
     "database": "uni_management"
 }
+
+
 
 state = "NOT LOGIN"
 
