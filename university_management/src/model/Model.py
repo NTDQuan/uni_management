@@ -55,7 +55,6 @@ class Student(Base):
     address: Mapped[str] = mapped_column(String(60))
     credit: Mapped[int] = mapped_column(Integer)
     year: Mapped[int] = mapped_column(Integer)
-    period: Mapped[int] = mapped_column(Integer)
     profile_image: Mapped[str] = mapped_column(String(100))
     gender_id: Mapped[int] = mapped_column(ForeignKey("gender.gender_id"))
     gender: Mapped["Gender"] = relationship(back_populates="students")

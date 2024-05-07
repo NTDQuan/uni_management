@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\lecturerMainScreen.ui'
+# Form implementation generated from reading ui file 'lecturerMainScreen.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -10,11 +10,16 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from university_management.src.controller.major_management.get_major import get_all_major
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(916, 600)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        MainWindow.setFont(font)
         MainWindow.setStyleSheet("background-color: #fff;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -22,6 +27,9 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.nav_bar_widget = QtWidgets.QWidget(self.centralwidget)
         self.nav_bar_widget.setMinimumSize(QtCore.QSize(150, 0))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.nav_bar_widget.setFont(font)
         self.nav_bar_widget.setStyleSheet("QWidget {\n"
 "    background-color: rgb(31, 149, 239);\n"
 "    color: white;\n"
@@ -58,6 +66,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.label_2)
         self.label = QtWidgets.QLabel(self.nav_bar_widget)
         font = QtGui.QFont()
+        font.setFamily("Poppins")
         font.setPointSize(15)
         self.label.setFont(font)
         self.label.setObjectName("label")
@@ -67,26 +76,41 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSpacing(15)
         self.verticalLayout.setObjectName("verticalLayout")
         self.studentListBtn = QtWidgets.QPushButton(self.nav_bar_widget)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.studentListBtn.setFont(font)
         self.studentListBtn.setCheckable(True)
         self.studentListBtn.setAutoExclusive(True)
         self.studentListBtn.setObjectName("studentListBtn")
         self.verticalLayout.addWidget(self.studentListBtn)
         self.lecturerListBtn = QtWidgets.QPushButton(self.nav_bar_widget)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.lecturerListBtn.setFont(font)
         self.lecturerListBtn.setCheckable(True)
         self.lecturerListBtn.setAutoExclusive(True)
         self.lecturerListBtn.setObjectName("lecturerListBtn")
         self.verticalLayout.addWidget(self.lecturerListBtn)
         self.majorListBtn = QtWidgets.QPushButton(self.nav_bar_widget)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.majorListBtn.setFont(font)
         self.majorListBtn.setCheckable(True)
         self.majorListBtn.setAutoExclusive(True)
         self.majorListBtn.setObjectName("majorListBtn")
         self.verticalLayout.addWidget(self.majorListBtn)
         self.classListBtn = QtWidgets.QPushButton(self.nav_bar_widget)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.classListBtn.setFont(font)
         self.classListBtn.setCheckable(True)
         self.classListBtn.setAutoExclusive(True)
         self.classListBtn.setObjectName("classListBtn")
         self.verticalLayout.addWidget(self.classListBtn)
         self.courseListBtn = QtWidgets.QPushButton(self.nav_bar_widget)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.courseListBtn.setFont(font)
         self.courseListBtn.setCheckable(True)
         self.courseListBtn.setAutoRepeat(False)
         self.courseListBtn.setAutoExclusive(True)
@@ -105,12 +129,98 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.stackedWidget = QtWidgets.QStackedWidget(self.widget_2)
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        self.stackedWidget.setFont(font)
         self.stackedWidget.setObjectName("stackedWidget")
         self.studentListPage = QtWidgets.QWidget()
         self.studentListPage.setObjectName("studentListPage")
         self.label_3 = QtWidgets.QLabel(self.studentListPage)
-        self.label_3.setGeometry(QtCore.QRect(260, 240, 121, 81))
+        self.label_3.setGeometry(QtCore.QRect(10, 10, 231, 71))
+        font = QtGui.QFont()
+        font.setPointSize(19)
+        self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
+        self.addBtn = QtWidgets.QPushButton(self.studentListPage)
+        self.addBtn.setGeometry(QtCore.QRect(10, 100, 120, 41))
+        self.addBtn.setMinimumSize(QtCore.QSize(120, 41))
+        self.addBtn.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 8px;\n"
+"    font-weight: bold;\n"
+"    font-size: 15px;\n"
+"}")
+        self.addBtn.setObjectName("addBtn")
+        self.tableWidget = QtWidgets.QTableWidget(self.studentListPage)
+        self.tableWidget.setGeometry(QtCore.QRect(10, 210, 650, 371))
+        self.tableWidget.setStyleSheet("QHeaderView::section {\n"
+"    font-weight: bold;\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    alternate-background-color: #BOEDF8;\n"
+"    background-color: #F4F9FA;\n"
+"}")
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(4, item)
+        self.layoutWidget = QtWidgets.QWidget(self.studentListPage)
+        self.layoutWidget.setGeometry(QtCore.QRect(11, 160, 508, 35))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.layoutWidget)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.gender_comboBox = QtWidgets.QComboBox(self.layoutWidget)
+        self.gender_comboBox.setMinimumSize(QtCore.QSize(101, 0))
+        self.gender_comboBox.setStyleSheet("QComboBox {\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"    border-radius: 6px;\n"
+"    padding-left: 15px;\n"
+"    height: 31px;\n"
+"}")
+        self.gender_comboBox.setObjectName("gender_comboBox")
+        self.gender_comboBox.addItem("")
+        self.gender_comboBox.addItem("")
+        self.gender_comboBox.addItem("")
+        self.horizontalLayout_2.addWidget(self.gender_comboBox)
+        self.major_comboBox = QtWidgets.QComboBox(self.layoutWidget)
+        self.major_comboBox.setMinimumSize(QtCore.QSize(132, 0))
+        self.major_comboBox.setStyleSheet("QComboBox {\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"    border-radius: 6px;\n"
+"    padding-left: 15px;\n"
+"    height: 31px;\n"
+"}")
+        self.major_comboBox.setObjectName("major_comboBox")
+        self.major_comboBox.addItem("")
+        major_list = get_all_major()
+        print(len(major_list))
+        for major in major_list:
+            self.major_comboBox.addItem(major)
+        self.horizontalLayout_2.addWidget(self.major_comboBox)
+        self.searchBarEdit = QtWidgets.QLineEdit(self.layoutWidget)
+        self.searchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
+        self.searchBarEdit.setStyleSheet("QLineEdit {\n"
+"    padding-left: 10px;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"}")
+        self.searchBarEdit.setObjectName("searchBarEdit")
+        self.horizontalLayout_2.addWidget(self.searchBarEdit)
         self.stackedWidget.addWidget(self.studentListPage)
         self.lecturerListPage = QtWidgets.QWidget()
         self.lecturerListPage.setObjectName("lecturerListPage")
@@ -154,9 +264,34 @@ class Ui_MainWindow(object):
         self.classListBtn.setText(_translate("MainWindow", "DS lớp"))
         self.courseListBtn.setText(_translate("MainWindow", "DS môn"))
         self.signoutBtn.setText(_translate("MainWindow", "Đăng xuất"))
-        self.label_3.setText(_translate("MainWindow", "Student list"))
+        self.label_3.setText(_translate("MainWindow", "Danh sách sinh viên"))
+        self.addBtn.setText(_translate("MainWindow", "Thêm sinh viên"))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "MSSV"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Họ và tên"))
+        item = self.tableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Ngành"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Giới tính"))
+        item = self.tableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Thao tác"))
+        self.gender_comboBox.setItemText(0, _translate("MainWindow", "Giới tính"))
+        self.gender_comboBox.setItemText(1, _translate("MainWindow", "Nam"))
+        self.gender_comboBox.setItemText(2, _translate("MainWindow", "Nữ"))
+
+        #get major list
+        major_list = get_all_major()
+        self.major_comboBox.setItemText(0, _translate("MainWindow", "Ngành"))
+        major_index = 1
+        print(len(major_list))
+        for major in major_list:
+            self.major_comboBox.setItemText(major_index, _translate("MainWindow", major_list[major_index - 1]))
+        self.searchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm sinh viên ..."))
         self.label_4.setText(_translate("MainWindow", "Lecturer list"))
         self.label_5.setText(_translate("MainWindow", "major List"))
         self.label_6.setText(_translate("MainWindow", "class list"))
         self.label_7.setText(_translate("MainWindow", "course list"))
+
+
 import ava_rc

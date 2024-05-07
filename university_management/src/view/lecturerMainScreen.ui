@@ -10,6 +10,11 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Poppins</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -25,6 +30,11 @@
         <width>150</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Poppins</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QWidget {
@@ -83,6 +93,7 @@ QPushButton:checked {
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
+             <family>Poppins</family>
              <pointsize>15</pointsize>
             </font>
            </property>
@@ -100,6 +111,11 @@ QPushButton:checked {
          </property>
          <item>
           <widget class="QPushButton" name="studentListBtn">
+           <property name="font">
+            <font>
+             <family>Poppins</family>
+            </font>
+           </property>
            <property name="text">
             <string>DS học sinh</string>
            </property>
@@ -113,6 +129,11 @@ QPushButton:checked {
          </item>
          <item>
           <widget class="QPushButton" name="lecturerListBtn">
+           <property name="font">
+            <font>
+             <family>Poppins</family>
+            </font>
+           </property>
            <property name="text">
             <string>DS giảng viên</string>
            </property>
@@ -126,6 +147,11 @@ QPushButton:checked {
          </item>
          <item>
           <widget class="QPushButton" name="majorListBtn">
+           <property name="font">
+            <font>
+             <family>Poppins</family>
+            </font>
+           </property>
            <property name="text">
             <string>DS ngành</string>
            </property>
@@ -139,6 +165,11 @@ QPushButton:checked {
          </item>
          <item>
           <widget class="QPushButton" name="classListBtn">
+           <property name="font">
+            <font>
+             <family>Poppins</family>
+            </font>
+           </property>
            <property name="text">
             <string>DS lớp</string>
            </property>
@@ -152,6 +183,11 @@ QPushButton:checked {
          </item>
          <item>
           <widget class="QPushButton" name="courseListBtn">
+           <property name="font">
+            <font>
+             <family>Poppins</family>
+            </font>
+           </property>
            <property name="text">
             <string>DS môn</string>
            </property>
@@ -208,19 +244,208 @@ QPushButton:checked {
        </property>
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
+         <property name="font">
+          <font>
+           <family>Poppins</family>
+          </font>
+         </property>
          <widget class="QWidget" name="studentListPage">
           <widget class="QLabel" name="label_3">
            <property name="geometry">
             <rect>
-             <x>260</x>
-             <y>240</y>
-             <width>121</width>
-             <height>81</height>
+             <x>10</x>
+             <y>10</y>
+             <width>231</width>
+             <height>71</height>
             </rect>
            </property>
-           <property name="text">
-            <string>Student list</string>
+           <property name="font">
+            <font>
+             <pointsize>19</pointsize>
+            </font>
            </property>
+           <property name="text">
+            <string>Danh sách sinh viên</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="addBtn">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>100</y>
+             <width>120</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	background-color: rgb(31, 149, 239);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-weight: bold;
+	font-size: 15px;
+}</string>
+           </property>
+           <property name="text">
+            <string>Thêm sinh viên</string>
+           </property>
+          </widget>
+          <widget class="QTableWidget" name="tableWidget">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>210</y>
+             <width>511</width>
+             <height>371</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QHeaderView::section {
+	font-weight: bold;
+	background-color: rgb(31, 149, 239);
+	color: white
+}
+
+QTableWidget {
+	alternate-background-color: #BOEDF8;
+	background-color: #F4F9FA;
+}</string>
+           </property>
+           <column>
+            <property name="text">
+             <string>MSSV</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Họ và tên</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Ngành</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Giới tính</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Thao tác</string>
+            </property>
+           </column>
+          </widget>
+          <widget class="QWidget" name="layoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>11</x>
+             <y>160</y>
+             <width>508</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QComboBox" name="gender_comboBox">
+              <property name="minimumSize">
+               <size>
+                <width>101</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QComboBox {
+	border: 1px solid rgb(31, 149, 239);
+	border-radius: 6px;
+	padding-left: 15px;
+	height: 31px;
+}</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Giới tính</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Nam</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Nữ</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="major_comboBox">
+              <property name="minimumSize">
+               <size>
+                <width>132</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QComboBox {
+	border: 1px solid rgb(31, 149, 239);
+	border-radius: 6px;
+	padding-left: 15px;
+	height: 31px;
+}</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Ngành</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Công nghệ thông tin</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Hệ thống thông tin</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Khoa học máy tính</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="searchBarEdit">
+              <property name="minimumSize">
+               <size>
+                <width>261</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLineEdit {
+	padding-left: 10px;
+	border-radius: 8px;
+	border: 1px solid rgb(31, 149, 239);
+}</string>
+              </property>
+              <property name="placeholderText">
+               <string>Tìm sinh viên ...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
          <widget class="QWidget" name="lecturerListPage">

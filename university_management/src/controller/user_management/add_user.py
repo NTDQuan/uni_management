@@ -12,7 +12,7 @@ def add_lecturer(lecturer_data: dict):
     session.add(lecturer)
 
 def add_student(student_data: dict):
-    student = Student(student_id = student_data["Student_id"], first_name = student_data["firstName"], last_name = student_data["lastName"], telephone = student_data["telephone"], address = student_data["address"], profile_image = student_data["profile_image"], gender_id = student_data["gender"], major_id = student_data["major"], credit = student_data["credit"], year = student_data["year"], period = student_data["period"])
+    student = Student(student_id = student_data["Student_id"], first_name = student_data["firstName"], last_name = student_data["lastName"], telephone = student_data["telephone"], address = student_data["address"], profile_image = student_data["profile_image"], gender_id = student_data["gender"], major_id = student_data["major"], credit = student_data["credit"], year = student_data["year"])
     session.add(student)
 
 class UserFactory:
