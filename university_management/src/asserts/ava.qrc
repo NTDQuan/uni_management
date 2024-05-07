@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>default_ava.png</file>
+  </qresource>
+</RCC>

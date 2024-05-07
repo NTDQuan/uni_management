@@ -1,14 +1,16 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 
 from university_management.src.controller.authentication.Authenticator import Authentication
+from university_management.src.view.loadLecturerMS import LecturerMainScreen
 
 class LoginView(QWidget):
     def __init__(self):
         super().__init__()
         self.authenticator = Authentication()
+        self.main_screen = None
         # Set window properties
         self.setFixedSize(800, 500)
         self.setWindowTitle("Uni Management")
@@ -21,7 +23,7 @@ class LoginView(QWidget):
         # Image widget (replace with your actual image loading authentication)
         self.image_label = QLabel()
         self.image_label.setFixedSize(400, 500)
-        self.image_label.setStyleSheet("padding: 0px; margin: 0px; border-image: url(./asserts/login_cover.jpg) 0 0 0 400")  
+        self.image_label.setStyleSheet("padding: 0px; margin: 0px; border-image: url(./asserts/login_cover.jpg) 0 0 0 400")
 
         self.right_half_widget = QWidget(self)
         self.right_half_widget.setFixedSize(400, 500)
@@ -32,7 +34,7 @@ class LoginView(QWidget):
         self.label = QLabel("Đăng nhập")
         self.label.setFont(QFont("Poppin", 24))
         self.label.setAlignment(Qt.AlignCenter)
-        
+
         self.usernameLineEdit = QLineEdit()
         self.usernameLineEdit.setFixedSize(200, 60)
         self.usernameLineEdit.setAlignment(Qt.AlignHCenter)
@@ -55,11 +57,22 @@ class LoginView(QWidget):
         self.main_layout.addWidget(self.image_label)
         self.main_layout.addWidget(self.right_half_widget)
 
+    def openMainScreen(self):
+        if self.main_screen is None:  # If the main screen instance doesn't exist, create it
+            self.main_screen = LecturerMainScreen()
+        self.hide()
+        self.main_screen.show()
+  # Hide the login screen
+
     def handleLoginButtonClick(self):
         loginInfo = [self.usernameLineEdit.text(), self.passwordLineEdit.text()]
         response = self.authenticator.authentication(self.usernameLineEdit.text(), self.passwordLineEdit.text())
         print(response)
-        return loginInfo
+        if response == 1:
+            print("entering main screen")
+            self.openMainScreen()
+
+
 
     def showLogin(self):
         self.show()

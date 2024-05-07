@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+from university_management.src.view.lecturerMainScreen import Ui_MainWindow
 from view.LoginView import LoginView
 from database.CreateTable import create_all_table
 from controller.authentication.Authenticator import Authentication

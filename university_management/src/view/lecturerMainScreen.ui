@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>916</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #fff;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QWidget" name="nav_bar_widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget {
+	background-color: rgb(31, 149, 239);
+	color: white;
+}
+
+QPushButton {
+	color: white;
+	text-align: left;
+	height: 30px;
+	border:none;
+	padding-left: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+QPushButton:checked {
+	background-color: #F5FAFE;
+	color:  #1F95EF;
+	font-weight: bold;
+}</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="minimumSize">
+            <size>
+             <width>40</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="../asserts/ava.qrc">:/newPrefix/default_ava.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <pointsize>15</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Tên</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>15</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="studentListBtn">
+           <property name="text">
+            <string>DS học sinh</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="lecturerListBtn">
+           <property name="text">
+            <string>DS giảng viên</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="majorListBtn">
+           <property name="text">
+            <string>DS ngành</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="classListBtn">
+           <property name="text">
+            <string>DS lớp</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="courseListBtn">
+           <property name="text">
+            <string>DS môn</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>false</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>337</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="signoutBtn">
+         <property name="text">
+          <string>Đăng xuất</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QWidget" name="widget_2" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget">
+         <widget class="QWidget" name="studentListPage">
+          <widget class="QLabel" name="label_3">
+           <property name="geometry">
+            <rect>
+             <x>260</x>
+             <y>240</y>
+             <width>121</width>
+             <height>81</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Student list</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="lecturerListPage">
+          <widget class="QLabel" name="label_4">
+           <property name="geometry">
+            <rect>
+             <x>250</x>
+             <y>270</y>
+             <width>111</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Lecturer list</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="majorListPage">
+          <widget class="QLabel" name="label_5">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>220</y>
+             <width>131</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>major List</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="classListPage">
+          <widget class="QLabel" name="label_6">
+           <property name="geometry">
+            <rect>
+             <x>316</x>
+             <y>240</y>
+             <width>71</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>class list</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="courseListPage">
+          <widget class="QLabel" name="label_7">
+           <property name="geometry">
+            <rect>
+             <x>280</x>
+             <y>280</y>
+             <width>61</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>course list</string>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../asserts/ava.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>signoutBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>568</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>49</x>
+     <y>641</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
