@@ -47,8 +47,8 @@ class Major(Base):
 class Student(Base):
     __tablename__ = "student"
 
-    student_id: Mapped[int] = mapped_column(ForeignKey("user.user_id") ,primary_key=True)
-    user: Mapped["User"] = relationship(back_populates="student")
+    student_id: Mapped[int] = mapped_column(ForeignKey("user.user_id") ,primary_key=True, onupdate="CASCADE")
+    user: Mapped["User"] = relationship(back_populates="student", cascade="all, delete, delete-orphan", single_parent=True)
     first_name: Mapped[str] = mapped_column(String(10))
     last_name: Mapped[str] = mapped_column(String(50))
     telephone: Mapped[str] = mapped_column(String(11))

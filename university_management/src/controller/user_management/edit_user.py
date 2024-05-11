@@ -5,11 +5,12 @@ from sqlalchemy.exc import IntegrityError
 
 def userUpdate(userID, user_data):
     user = session.query(User).get(userID)
-    user.user_id = int(user_data["new_id"])
     user.email = user_data["new_email"]
     session.commit()
 
 def studentUpdate(userID, user_data):
+    user = session.query(User).get(userID)
+    user.email = user_data["new_email"]
     student = session.query(Student).get(userID)
     student.student_id = int(user_data["new_id"])
     student.first_name = user_data["new_first_name"]
@@ -25,8 +26,6 @@ def editStudent(userID, user_data):
     try:
         # Update student record first
         studentUpdate(userID, user_data)
-
-        userUpdate(userID, user_data)
         session.commit()
 
     except IntegrityError as e:
