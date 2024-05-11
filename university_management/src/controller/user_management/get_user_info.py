@@ -7,7 +7,7 @@ from university_management.src.controller.major_management.get_major import get_
 
 def get_student_for_display_table(major_filter, gender_filter):
     # Define columns to be selected
-    columns = [Student.student_id, func.concat(Student.first_name, " ", Student.last_name).label("full_name"), Major.major_name, Gender.gender_name]
+    columns = [Student.student_id, func.concat(Student.last_name, " ", Student.first_name).label("full_name"), Major.major_name, Gender.gender_name]
 
     # Define base query
     query = session.query(*columns).join(Major, Major.major_id == Student.major_id).join(Gender, Gender.gender_id == Student.gender_id)
@@ -24,8 +24,16 @@ def get_student_for_display_table(major_filter, gender_filter):
 
     return result
 
+def get_full_student_info(studentId):
+    columns = [Student.student_id, Student.first_name, Student.last_name, Student.telephone, Student.address, Gender.gender_name, Major.major_name]
+    query = session.query(*columns).join(Major, Major.major_id == Student.major_id).join(Gender, Gender.gender_id == Student.gender_id)
+    query = query.filter(Student.student_id == studentId)
+    result = query.first()
+    return result
+
+
 def search_student(query_id):
-    columns = [Student.student_id, func.concat(Student.first_name, " ", Student.last_name).label("full_name"),
+    columns = [Student.student_id, func.concat(Student.last_name, " ", Student.first_name).label("full_name"),
                Major.major_name, Gender.gender_name]
 
     query = session.query(*columns).join(Major, Major.major_id == Student.major_id).join(Gender, Gender.gender_id == Student.gender_id)

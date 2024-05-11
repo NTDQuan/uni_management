@@ -82,7 +82,7 @@ QPushButton:checked {
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="../asserts/ava.qrc">:/newPrefix/default_ava.png</pixmap>
+            <pixmap>:/newPrefix/default_ava.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -302,7 +302,7 @@ QPushButton:checked {
             <rect>
              <x>10</x>
              <y>210</y>
-             <width>511</width>
+             <width>600</width>
              <height>371</height>
             </rect>
            </property>

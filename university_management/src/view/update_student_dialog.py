@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'add_student_dialog.ui'
+# Form implementation generated from reading ui file 'update_student_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -12,16 +12,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from university_management.src.controller.major_management.get_major import get_all_major, get_major_id
-from university_management.src.controller.user_management.UserCommand import Invoker, CreateUserCommand
-from university_management.src.database.initSession import session
-from university_management.src.model.Model import User
+from university_management.src.controller.user_management.edit_user import editStudent
+from university_management.src.controller.user_management.get_user_info import get_full_student_info
 from university_management.src.util.getFirstAndLastName import getFirstAndLastName
+from university_management.src.util.getGenderId import get_gender_id
 
 
-class Ui_add_student_dialog(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setObjectName("add_student_dialog")
+class Ui_update_student_dialog(QDialog):
+    def __init__(self, row_index, row_data):
+        super().__init__()
+        self.row_index = row_index
+        self.row_data = row_data
+        self.student_info = get_full_student_info(self.row_data[0])
+        print(self.student_info)
+
+        #get selected student info
+        self.student_id_info = self.student_info[0]
+        self.student_firstName_info = self.student_info[1]
+        self.student_lastName_info = self.student_info[2]
+        self.student_phone_info = self.student_info[3]
+        self.student_address_info = self.student_info[4]
+        self.student_gender_info = self.student_info[5]
+        self.student_major_info = self.student_info[6]
+
         self.resize(466, 517)
         font = QtGui.QFont()
         font.setFamily("Poppins")
@@ -79,10 +92,10 @@ class Ui_add_student_dialog(QDialog):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
-        self.studentIDEdit = QtWidgets.QLineEdit(self.layoutWidget)
-        self.studentIDEdit.setMinimumSize(QtCore.QSize(0, 20))
-        self.studentIDEdit.setObjectName("studentIDEdit")
-        self.verticalLayout.addWidget(self.studentIDEdit)
+        self.update_studentIDEdit = QtWidgets.QLineEdit(self.layoutWidget)
+        self.update_studentIDEdit.setMinimumSize(QtCore.QSize(0, 20))
+        self.update_studentIDEdit.setObjectName("update_studentIDEdit")
+        self.verticalLayout.addWidget(self.update_studentIDEdit)
         self.verticalLayout_8.addLayout(self.verticalLayout)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -94,11 +107,11 @@ class Ui_add_student_dialog(QDialog):
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.verticalLayout_2.addWidget(self.label_5)
-        self.gender_comboBox = QtWidgets.QComboBox(self.layoutWidget)
-        self.gender_comboBox.setObjectName("gender_comboBox")
-        self.gender_comboBox.addItem("")
-        self.gender_comboBox.addItem("")
-        self.verticalLayout_2.addWidget(self.gender_comboBox)
+        self.update_gender_comboBox = QtWidgets.QComboBox(self.layoutWidget)
+        self.update_gender_comboBox.setObjectName("update_gender_comboBox")
+        self.update_gender_comboBox.addItem("")
+        self.update_gender_comboBox.addItem("")
+        self.verticalLayout_2.addWidget(self.update_gender_comboBox)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -108,13 +121,13 @@ class Ui_add_student_dialog(QDialog):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.verticalLayout_3.addWidget(self.label_6)
-        self.major_comboBox = QtWidgets.QComboBox(self.layoutWidget)
-        self.major_comboBox.setObjectName("major_comboBox")
+        self.update_major_comboBox = QtWidgets.QComboBox(self.layoutWidget)
+        self.update_major_comboBox.setObjectName("update_major_comboBox")
         major_list = get_all_major()
         print(len(major_list))
         for major in major_list:
-            self.major_comboBox.addItem(major)
-        self.verticalLayout_3.addWidget(self.major_comboBox)
+            self.update_major_comboBox.addItem(major)
+        self.verticalLayout_3.addWidget(self.update_major_comboBox)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.verticalLayout_8.addLayout(self.horizontalLayout)
         self.verticalLayout_5 = QtWidgets.QVBoxLayout()
@@ -126,10 +139,10 @@ class Ui_add_student_dialog(QDialog):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.verticalLayout_5.addWidget(self.label_3)
-        self.studentNameEdit = QtWidgets.QLineEdit(self.layoutWidget)
-        self.studentNameEdit.setMinimumSize(QtCore.QSize(0, 20))
-        self.studentNameEdit.setObjectName("studentNameEdit")
-        self.verticalLayout_5.addWidget(self.studentNameEdit)
+        self.update_studentNameEdit = QtWidgets.QLineEdit(self.layoutWidget)
+        self.update_studentNameEdit.setMinimumSize(QtCore.QSize(0, 20))
+        self.update_studentNameEdit.setObjectName("update_studentNameEdit")
+        self.verticalLayout_5.addWidget(self.update_studentNameEdit)
         self.verticalLayout_8.addLayout(self.verticalLayout_5)
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
         self.verticalLayout_6.setObjectName("verticalLayout_6")
@@ -140,10 +153,10 @@ class Ui_add_student_dialog(QDialog):
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.verticalLayout_6.addWidget(self.label_4)
-        self.studentPhoneEdit = QtWidgets.QLineEdit(self.layoutWidget)
-        self.studentPhoneEdit.setMinimumSize(QtCore.QSize(0, 20))
-        self.studentPhoneEdit.setObjectName("studentPhoneEdit")
-        self.verticalLayout_6.addWidget(self.studentPhoneEdit)
+        self.update_studentPhoneEdit = QtWidgets.QLineEdit(self.layoutWidget)
+        self.update_studentPhoneEdit.setMinimumSize(QtCore.QSize(0, 20))
+        self.update_studentPhoneEdit.setObjectName("update_studentPhoneEdit")
+        self.verticalLayout_6.addWidget(self.update_studentPhoneEdit)
         self.verticalLayout_8.addLayout(self.verticalLayout_6)
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
         self.verticalLayout_7.setObjectName("verticalLayout_7")
@@ -154,10 +167,10 @@ class Ui_add_student_dialog(QDialog):
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.verticalLayout_7.addWidget(self.label_8)
-        self.studentAddressEdit = QtWidgets.QLineEdit(self.layoutWidget)
-        self.studentAddressEdit.setMinimumSize(QtCore.QSize(0, 20))
-        self.studentAddressEdit.setObjectName("studentAddressEdit")
-        self.verticalLayout_7.addWidget(self.studentAddressEdit)
+        self.update_studentAddressEdit = QtWidgets.QLineEdit(self.layoutWidget)
+        self.update_studentAddressEdit.setMinimumSize(QtCore.QSize(0, 20))
+        self.update_studentAddressEdit.setObjectName("updatE_studentAddressEdit")
+        self.verticalLayout_7.addWidget(self.update_studentAddressEdit)
         self.verticalLayout_8.addLayout(self.verticalLayout_7)
         self.layoutWidget1 = QtWidgets.QWidget(self)
         self.layoutWidget1.setGeometry(QtCore.QRect(250, 460, 201, 43))
@@ -165,9 +178,9 @@ class Ui_add_student_dialog(QDialog):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.add_Btn = QtWidgets.QPushButton(self.layoutWidget1)
-        self.add_Btn.setMinimumSize(QtCore.QSize(0, 41))
-        self.add_Btn.setStyleSheet("QPushButton {\n"
+        self.update_Btn = QtWidgets.QPushButton(self.layoutWidget1)
+        self.update_Btn.setMinimumSize(QtCore.QSize(0, 41))
+        self.update_Btn.setStyleSheet("QPushButton {\n"
 "    background-color: rgb(31, 149, 239);\n"
 "    color: white;\n"
 "    border: none;\n"
@@ -175,11 +188,11 @@ class Ui_add_student_dialog(QDialog):
 "    font-weight: bold;\n"
 "    font-size: 15px;\n"
 "}")
-        self.add_Btn.setObjectName("add_Btn")
-        self.horizontalLayout_2.addWidget(self.add_Btn)
-        self.cancel_Btn = QtWidgets.QPushButton(self.layoutWidget1)
-        self.cancel_Btn.setMinimumSize(QtCore.QSize(0, 41))
-        self.cancel_Btn.setStyleSheet("QPushButton {\n"
+        self.update_Btn.setObjectName("update_Btn")
+        self.horizontalLayout_2.addWidget(self.update_Btn)
+        self.update_cancel_Btn = QtWidgets.QPushButton(self.layoutWidget1)
+        self.update_cancel_Btn.setMinimumSize(QtCore.QSize(0, 41))
+        self.update_cancel_Btn.setStyleSheet("QPushButton {\n"
 "    background-color: red;\n"
 "    color: white;\n"
 "    border: none;\n"
@@ -187,84 +200,57 @@ class Ui_add_student_dialog(QDialog):
 "    font-weight: bold;\n"
 "    font-size: 15px;\n"
 "}")
-        self.cancel_Btn.setObjectName("cancel_Btn")
-        self.horizontalLayout_2.addWidget(self.cancel_Btn)
+        self.update_cancel_Btn.setObjectName("update_cancel_Btn")
+        self.horizontalLayout_2.addWidget(self.update_cancel_Btn)
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
 
-        # Add button logic
-        self.add_Btn.clicked.connect(self.add_student)
-        self.cancel_Btn.clicked.connect(self.close)
-
-    def retranslateUi(self, add_student_dialog):
+    def retranslateUi(self, update_student_dialog):
         _translate = QtCore.QCoreApplication.translate
-        add_student_dialog.setWindowTitle(_translate("add_student_dialog", "Dialog"))
-        self.label.setText(_translate("add_student_dialog", "Thêm sinh viên mới"))
-        self.label_2.setText(_translate("add_student_dialog", "Mã số sinh viên"))
-        self.label_5.setText(_translate("add_student_dialog", "Giới tính"))
-        self.gender_comboBox.setItemText(0, _translate("add_student_dialog", "Nam"))
-        self.gender_comboBox.setItemText(1, _translate("add_student_dialog", "Nữ"))
-        self.label_6.setText(_translate("add_student_dialog", "Ngành"))
-        self.label_3.setText(_translate("add_student_dialog", "Họ tên"))
-        self.label_4.setText(_translate("add_student_dialog", "Số điện thoại"))
-        self.label_8.setText(_translate("add_student_dialog", "Địa chỉ"))
-        self.add_Btn.setText(_translate("add_student_dialog", "Thêm"))
-        self.cancel_Btn.setText(_translate("add_student_dialog", "Hủy"))
+        update_student_dialog.setWindowTitle(_translate("update_student_dialog", "Cập nhập thông tin sinh viên"))
+        self.label.setText(_translate("update_student_dialog", "Cập nhập thông tin"))
+        self.label_2.setText(_translate("update_student_dialog", "Mã số sinh viên"))
+        self.label_5.setText(_translate("update_student_dialog", "Giới tính"))
+        self.update_gender_comboBox.setItemText(0, _translate("update_student_dialog", "Nam"))
+        self.update_gender_comboBox.setItemText(1, _translate("update_student_dialog", "Nữ"))
+        self.label_6.setText(_translate("update_student_dialog", "Ngành"))
+        self.label_3.setText(_translate("update_student_dialog", "Họ tên"))
+        self.label_4.setText(_translate("update_student_dialog", "Số điện thoại"))
+        self.label_8.setText(_translate("update_student_dialog", "Địa chỉ"))
+        self.update_Btn.setText(_translate("update_student_dialog", "Cập nhập"))
+        self.update_cancel_Btn.setText(_translate("update_student_dialog", "Hủy"))
 
 
-    def getInfo(self):
-        print("Get info...")
-        user_info = {
-            "User_id": self.studentIDEdit.text(),
-            "Password": "1",
-            "User_email": self.studentIDEdit.text() + "@gm.uit.edu.vn",
-            "User_role": 3
+        self.update_studentIDEdit.setText(str(self.student_id_info))
+        self.update_studentNameEdit.setText(str(self.student_lastName_info) + " " + str(self.student_firstName_info))
+        self.update_gender_comboBox.setCurrentText(str(self.student_gender_info))
+        self.update_major_comboBox.setCurrentText(str(self.student_major_info))
+        self.update_studentPhoneEdit.setText(str(self.student_phone_info))
+        self.update_studentAddressEdit.setText(str(self.student_address_info))
+
+        #update button logic
+        self.update_Btn.clicked.connect(self.update_student)
+
+    def update_student(self):
+        new_last_name ,new_first_name = getFirstAndLastName(self.update_studentNameEdit.text())
+        params = {
+            "new_id": self.update_studentIDEdit.text(),
+            "new_gender": get_gender_id(self.update_gender_comboBox.currentText()),
+            "new_major": get_major_id(self.update_major_comboBox.currentText()),
+            "new_email": self.update_studentIDEdit.text() + "@gm.uit.edu.vn",
+            "new_last_name": new_last_name,
+            "new_first_name": new_first_name,
+            "new_telephone": self.update_studentPhoneEdit.text(),
+            "new_address": self.update_studentAddressEdit.text()
         }
-        lastName, firstName = getFirstAndLastName(self.studentNameEdit.text())
-        student_info = {
-            "Student_id": self.studentIDEdit.text(),
-            "firstName": firstName,
-            "lastName": lastName,
-            "telephone": self.studentPhoneEdit.text(),
-            "address": self.studentAddressEdit.text(),
-            "profile_image": "image",
-            "gender": self.get_gender_id(self.gender_comboBox.currentText()),
-            "major":  get_major_id(self.major_comboBox.currentText()),
-            "credit": 0,
-            "year": 1,
-        }
-        return user_info, student_info
 
-    def get_gender_id(self, gender):
-        if gender == "Nam":
-            return 1
-        elif gender == "Nữ":
-            return 2
+        editStudent(self.student_id_info, params)
+        self.show_updated_message()
+        self.close()
 
-    def add_new_student(self):
-        user_info, student_info = self.getInfo()
-        if not self.isUserExist(user_info["User_id"]):
-            print("add new student...")
-            invoker = Invoker()
-            command = CreateUserCommand(user_info, student_info)
-            invoker.set_on_start(command)
-            invoker.createUser()
-            self.show_added_message()
-
-    def isUserExist(self, userID):
-        user = session.query(User).get(userID)
-        if user:
-            return True
-        else:
-            return False
-
-    def show_added_message(self):
+    def show_updated_message(self):
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
-        msg_box.setText("Đã thêm thành công")
+        msg_box.setText("Đã sửa thành công")
         msg_box.exec()
-
-    def add_student(self):
-        self.add_new_student()
-        self.accept()

@@ -114,6 +114,7 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.tableWidget.setRowHeight(row_index, 50)
 
 
+
 class DoubleButtonWidgetStudents(QWidget):
     def __init__(self, row_index, row_data):
         super().__init__()
@@ -128,6 +129,7 @@ class DoubleButtonWidgetStudents(QWidget):
         self.edit_button = QPushButton("Sửa", self)
         self.edit_button.setStyleSheet("background-color: blue; color: white")
         self.edit_button.setFixedSize(61, 31)
+        self.edit_button.clicked.connect(self.edit_clicked)
 
         self.delete_button = QPushButton("Xóa", self)
         self.delete_button.setStyleSheet("background-color: red; color: white")
@@ -135,3 +137,12 @@ class DoubleButtonWidgetStudents(QWidget):
 
         layout.addWidget(self.edit_button)
         layout.addWidget(self.delete_button)
+
+    def edit_clicked(self):
+        from update_student_dialog import Ui_update_student_dialog
+        self.update_dialog = Ui_update_student_dialog(self.row_index, self.row_data)
+
+        self.update_dialog.exec()
+
+    def delete_clicked(self):
+        pass
