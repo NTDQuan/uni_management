@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
 from university_management.src.controller.major_management.get_major import get_all_major, get_major_id
@@ -19,6 +20,9 @@ from university_management.src.util.getGenderId import get_gender_id
 
 
 class Ui_update_student_dialog(QDialog):
+
+    data_updated = pyqtSignal()
+
     def __init__(self, row_index, row_data):
         super().__init__()
         self.row_index = row_index
@@ -232,6 +236,7 @@ class Ui_update_student_dialog(QDialog):
         #update button logic
         self.update_Btn.clicked.connect(self.update_student)
 
+
     def update_student(self):
         new_last_name ,new_first_name = getFirstAndLastName(self.update_studentNameEdit.text())
         params = {
@@ -247,6 +252,8 @@ class Ui_update_student_dialog(QDialog):
 
         editStudent(self.student_id_info, params)
         self.show_updated_message()
+
+        self.data_updated.emit()
         self.close()
 
     def show_updated_message(self):
