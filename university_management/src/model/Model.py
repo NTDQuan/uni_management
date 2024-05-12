@@ -65,7 +65,7 @@ class Lecturer(Base):
     __tablename__ = "lecturer"
 
     lecturer_id: Mapped[int] = mapped_column(ForeignKey("user.user_id"), primary_key=True)
-    user: Mapped["User"] = relationship(back_populates="lecturer")
+    user: Mapped["User"] = relationship(back_populates="lecturer", cascade="all, delete, delete-orphan", single_parent=True)
     first_name: Mapped[str] = mapped_column(String(10))
     last_name: Mapped[str] = mapped_column(String(50))
     telephone: Mapped[str] = mapped_column(String(11))

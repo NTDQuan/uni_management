@@ -8,7 +8,7 @@ def add_user(user_data: dict):
     session.add(user)
 
 def add_lecturer(lecturer_data: dict):
-    lecturer = Lecturer(lecture_id = lecturer_data["Lecturer_id"], first_name = lecturer_data["firstName"], last_name = lecturer_data["lastName"], telephone = lecturer_data["telephone"], address = lecturer_data["address"], profile_image = lecturer_data["profile_image"], gender_id = lecturer_data["gender"], major_id = lecturer_data["major"])
+    lecturer = Lecturer(lecturer_id = lecturer_data["Lecturer_id"], first_name = lecturer_data["firstName"], last_name = lecturer_data["lastName"], telephone = lecturer_data["telephone"], address = lecturer_data["address"], profile_image = lecturer_data["profile_image"], gender_id = lecturer_data["gender"], major_id = lecturer_data["major"])
     session.add(lecturer)
 
 def add_student(student_data: dict):
@@ -20,6 +20,7 @@ class UserFactory:
     def create_user(cls, user_data: dict, profile_data: dict):
         add_user(user_data)
         if user_data["User_role"] == 2:
+            print("Creating lecturer")
             add_lecturer(profile_data)
         elif user_data["User_role"] == 3:
             print("Creating student")
