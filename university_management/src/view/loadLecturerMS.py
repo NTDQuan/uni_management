@@ -1,6 +1,9 @@
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QWidget, QHBoxLayout, QPushButton, QMessageBox
 
-from university_management.src.controller.major_management.get_major import get_major_id
+from university_management.src.controller.major_management.get_major import get_major_id, get_major_for_display_table, \
+    get_all_major
+from university_management.src.controller.major_management.remove_major import delete_major
 from university_management.src.controller.user_management.remove_user import deleteUser, deleteStudent, deleteLecturer
 from university_management.src.util.getGenderId import get_gender_id
 from university_management.src.view.lecturerMainScreen import Ui_MainWindow
@@ -9,6 +12,7 @@ from university_management.src.controller.user_management.get_user_info import g
 
 
 class LecturerMainScreen(QMainWindow, Ui_MainWindow):
+    majorListUpdated = pyqtSignal(list)
     def __init__(self):
         super().__init__()
 
@@ -25,6 +29,7 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
         self.addBtn.clicked.connect(self.open_addStudent_dialog)
         self.addLecturerBtn.clicked.connect(self.open_addLecturer_dialog)
+        self.addMajorBtn.clicked.connect(self.open_addMajor_dialog)
 
         #Load student data
         self.load_students_info()
@@ -36,6 +41,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.load_lecturers_info()
         self.lecturerGender_comboBox.currentIndexChanged.connect(self.reload_lecturer_data)
         self.lecturerMajor_comboBox.currentIndexChanged.connect(self.reload_lecturer_data)
+
+        #Load major data
+        self.load_majors_info()
 
 
         #Controll student list columns width
@@ -51,6 +59,13 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.lecturerTableWidget.setColumnWidth(2, 100)
         self.lecturerTableWidget.setColumnWidth(3, 100)
         self.lecturerTableWidget.setColumnWidth(4, 180)
+
+        #Controll major list columns width
+        self.majorTableWidget.setColumnWidth(0, 100)
+        self.majorTableWidget.setColumnWidth(1, 150)
+        self.majorTableWidget.setColumnWidth(2, 100)
+        self.majorTableWidget.setColumnWidth(3, 100)
+        self.majorTableWidget.setColumnWidth(4, 180)
 
     def switch_to_studentList_page(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -114,6 +129,7 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
     def reload_lecturer_data(self):
         self.lecturerTableWidget.clearContents()
         self.load_lecturers_info()
+        self.load_majors_info()
 
     # student list page function
     def open_addStudent_dialog(self):
@@ -163,6 +179,7 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
     def reload_data(self):
         self.tableWidget.clearContents()
         self.load_students_info()
+        self.load_majors_info()
 
     def search_student(self):
         self.tableWidget.setRowCount(0)
@@ -179,7 +196,69 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.tableWidget.setCellWidget(row_index, 4, double_button_widget)
             self.tableWidget.setRowHeight(row_index, 50)
 
+    # major list page function
+    def open_addMajor_dialog(self):
+        from add_major_dialog import Ui_add_major_dialog
+        addMajor_dialog = Ui_add_major_dialog(self)
+        result = addMajor_dialog.exec()
+        if result == Ui_add_major_dialog.Accepted:
+            print("accept")
+            self.reload_majors_data()
 
+    def load_majors_info(self):
+        print("Loading all major data...")
+        self.majorTableWidget.setRowCount(0)
+        data = self.get_major_data_from_table()
+        for row_index, row_data in enumerate(data):
+            self.majorTableWidget.insertRow(row_index)
+            for col_index, cell_data in enumerate(row_data):
+                item = QTableWidgetItem(str(cell_data))
+                self.majorTableWidget.setItem(row_index, col_index, item)
+
+            # Action widget
+            double_button_widget = DoubleButtonWidgetMajors(row_index, row_data, self)
+            self.majorTableWidget.setCellWidget(row_index, 4, double_button_widget)
+            self.majorTableWidget.setRowHeight(row_index, 50)
+
+    def get_major_data_from_table(self):
+        data = get_major_for_display_table()
+        if data:
+            for major in data:
+                print(f"major ID: {major[0]}")
+                print(f"Full Name: {major[1]}")
+                # Uncomment the following lines if you have gender and major relationships defined
+                print(f"student num: {major[2]}")  # Assuming gender information is available
+                print(f"lecturer num: {major[3]}")  # Assuming major information is available
+                print("-" * 20)  # Separator
+        else:
+            print("No students found based on the provided filters.")
+        return data
+
+    def reload_majors_data(self):
+        print("reload major data")
+        self.majorTableWidget.clearContents()
+        self.load_majors_info()
+        self.fetch_and_update_majors()
+
+    def fetch_and_update_majors(self):
+        # Fetch updated major list from database
+        new_major_list = get_all_major()
+        print(new_major_list)
+
+        # Update the combobox (similar to the update_major_combobox slot)
+        self.major_comboBox.clear()
+        self.major_comboBox.addItem("Ngành")
+
+        self.lecturerMajor_comboBox.clear()
+        self.lecturerMajor_comboBox.addItem("Ngành")
+
+        for major in new_major_list:
+            self.major_comboBox.addItem(major)
+
+        for major in new_major_list:
+            self.lecturerMajor_comboBox.addItem(major)
+
+        self.majorListUpdated.emit(new_major_list)
 
 class DoubleButtonWidgetStudents(QWidget):
     def __init__(self, row_index, row_data, lecturerMainScreen):
@@ -275,3 +354,51 @@ class DoubleButtonWidgetLecturers(QWidget):
             deleteLecturer(self.lecturer_id)
 
         self.lecturerMainScreen.reload_lecturer_data()
+
+class DoubleButtonWidgetMajors(QWidget):
+    def __init__(self, row_index, row_data, lecturerMainScreen):
+        super().__init__()
+
+        self.row_index = row_index
+        self.row_data = row_data
+        self.lecturerMainScreen = lecturerMainScreen
+
+        self.lecturer_id = self.row_data[0]
+
+        layout = QHBoxLayout(self)
+
+        self.edit_button = QPushButton("Sửa", self)
+        self.edit_button.setStyleSheet("background-color: blue; color: white")
+        self.edit_button.setFixedSize(61, 31)
+
+        self.delete_button = QPushButton("Xóa", self)
+        self.delete_button.setStyleSheet("background-color: red; color: white")
+        self.delete_button.setFixedSize(61, 31)
+
+        layout.addWidget(self.edit_button)
+        layout.addWidget(self.delete_button)
+
+        #Button logic
+        self.edit_button.clicked.connect(self.edit_clicked)
+        self.delete_button.clicked.connect(self.delete_clicked)
+
+    def edit_clicked(self):
+        from update_major_dialog import Ui_update_major_dialog
+        self.update_major_dialog = Ui_update_major_dialog(self.row_index, self.row_data)
+
+        # Connect the custom signal reload data after update record
+        self.update_major_dialog.data_updated.connect(self.lecturerMainScreen.reload_majors_data)
+
+        self.update_major_dialog.exec()
+
+    def delete_clicked(self):
+        message = QMessageBox.question(
+            self,
+            'Xác nhận', 'Bạn có chắc chắn muốn xóa ngành này không ?',
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if message == QMessageBox.StandardButton.Yes:
+            delete_major(self.lecturer_id)
+
+        self.lecturerMainScreen.reload_majors_data()

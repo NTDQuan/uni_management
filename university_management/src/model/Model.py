@@ -42,7 +42,7 @@ class Major(Base):
     major_name: Mapped[str] = mapped_column(String(50))
     students: Mapped[List["Student"]] = relationship(back_populates="major")
     lecturers: Mapped[List["Lecturer"]] = relationship(back_populates="major")
-    course: Mapped["Course"] = relationship(back_populates="major")
+    course: Mapped[List["Course"]] = relationship(back_populates="major")
 
 class Student(Base):
     __tablename__ = "student"

@@ -198,6 +198,7 @@ class Ui_add_student_dialog(QDialog):
         self.add_Btn.clicked.connect(self.add_student)
         self.cancel_Btn.clicked.connect(self.close)
 
+
     def retranslateUi(self, add_student_dialog):
         _translate = QtCore.QCoreApplication.translate
         add_student_dialog.setWindowTitle(_translate("add_student_dialog", "Dialog"))
@@ -259,6 +260,7 @@ class Ui_add_student_dialog(QDialog):
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã thêm thành công")
         msg_box.exec()
+
 
     def add_student(self):
         self.add_new_student()

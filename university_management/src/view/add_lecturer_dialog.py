@@ -211,6 +211,7 @@ class Ui_add_lecturer_dialog(QDialog):
         self.cancelAddLecturer_Btn.clicked.connect(self.close)
 
 
+
     def getInfo(self):
         print("Get info...")
         user_info = {
@@ -255,6 +256,8 @@ class Ui_add_lecturer_dialog(QDialog):
         msg_box.setText("Đã thêm thành công")
         msg_box.exec()
 
+
     def add_lecturer(self):
         self.add_new_lecturer()
         self.accept()
+

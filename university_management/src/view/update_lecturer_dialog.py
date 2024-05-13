@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
-from university_management.src.controller.major_management.get_major import get_major_id
+from university_management.src.controller.major_management.get_major import get_major_id, get_all_major
 from university_management.src.controller.user_management.edit_user import editLecturer
 from university_management.src.controller.user_management.get_user_info import get_full_lecturer_info
 from university_management.src.util.getFirstAndLastName import getFirstAndLastName
@@ -126,9 +126,10 @@ class Ui_update_lecturer_dialog(QDialog):
         self.verticalLayout_3.addWidget(self.label_6)
         self.update_lecturer_major_comboBox = QtWidgets.QComboBox(self.layoutWidget)
         self.update_lecturer_major_comboBox.setObjectName("update_lecturer_major_comboBox")
-        self.update_lecturer_major_comboBox.addItem("")
-        self.update_lecturer_major_comboBox.addItem("")
-        self.update_lecturer_major_comboBox.addItem("")
+        major_list = get_all_major()
+        print(len(major_list))
+        for major in major_list:
+            self.update_lecturer_major_comboBox.addItem(major)
         self.verticalLayout_3.addWidget(self.update_lecturer_major_comboBox)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.verticalLayout_8.addLayout(self.horizontalLayout)
@@ -217,9 +218,6 @@ class Ui_update_lecturer_dialog(QDialog):
         self.update_lecturer_gender_comboBox.setItemText(0, _translate("update_student_dialog", "Nam"))
         self.update_lecturer_gender_comboBox.setItemText(1, _translate("update_student_dialog", "Nữ"))
         self.label_6.setText(_translate("update_student_dialog", "Ngành"))
-        self.update_lecturer_major_comboBox.setItemText(0, _translate("update_student_dialog", "Công nghệ thông tin"))
-        self.update_lecturer_major_comboBox.setItemText(1, _translate("update_student_dialog", "Hệ thống thông tin"))
-        self.update_lecturer_major_comboBox.setItemText(2, _translate("update_student_dialog", "Khoa học máy tính"))
         self.label_3.setText(_translate("update_student_dialog", "Họ tên"))
         self.label_4.setText(_translate("update_student_dialog", "Số điện thoại"))
         self.label_8.setText(_translate("update_student_dialog", "Địa chỉ"))
@@ -234,6 +232,11 @@ class Ui_update_lecturer_dialog(QDialog):
         self.update_lecturerAddressEdit.setText(str(self.lecturer_address_info))
 
         self.update_Btn.clicked.connect(self.update_lecturer)
+
+        #Get major update signal to update comboBox
+        from loadLecturerMS import LecturerMainScreen
+        self.update_major = LecturerMainScreen()
+        self.update_major.majorListUpdated.connect(self.update_major_comboBox)
 
     def update_lecturer(self):
         new_last_name ,new_first_name = getFirstAndLastName(self.update_lecturerNameEdit.text())
@@ -259,3 +262,8 @@ class Ui_update_lecturer_dialog(QDialog):
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã sửa thành công")
         msg_box.exec()
+
+    def update_major_comboBox(self, new_major_list):
+        self.update_lecturer_major_comboBox.clear()
+        for major in new_major_list:
+            self.update_lecturer_major_comboBox.addItem(major)

@@ -9,9 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import pyqtSignal
-
-from university_management.src.controller.major_management.get_major import get_all_major
 
 
 class Ui_MainWindow(object):
@@ -155,7 +152,7 @@ class Ui_MainWindow(object):
 "}")
         self.addBtn.setObjectName("addBtn")
         self.tableWidget = QtWidgets.QTableWidget(self.studentListPage)
-        self.tableWidget.setGeometry(QtCore.QRect(10, 210, 650, 371))
+        self.tableWidget.setGeometry(QtCore.QRect(10, 210, 600, 371))
         self.tableWidget.setStyleSheet("QHeaderView::section {\n"
 "    font-weight: bold;\n"
 "    background-color: rgb(31, 149, 239);\n"
@@ -208,10 +205,9 @@ class Ui_MainWindow(object):
 "}")
         self.major_comboBox.setObjectName("major_comboBox")
         self.major_comboBox.addItem("")
-        major_list = get_all_major()
-        print(len(major_list))
-        for major in major_list:
-            self.major_comboBox.addItem(major)
+        self.major_comboBox.addItem("")
+        self.major_comboBox.addItem("")
+        self.major_comboBox.addItem("")
         self.horizontalLayout_2.addWidget(self.major_comboBox)
         self.searchBarEdit = QtWidgets.QLineEdit(self.layoutWidget)
         self.searchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
@@ -224,97 +220,92 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.searchBarEdit)
         self.stackedWidget.addWidget(self.studentListPage)
         self.lecturerListPage = QtWidgets.QWidget()
-        self.lecturerListPage.setObjectName(u"lecturerListPage")
+        self.lecturerListPage.setObjectName("lecturerListPage")
         self.label_4 = QtWidgets.QLabel(self.lecturerListPage)
-        self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QtCore.QRect(10, 10, 251, 71))
+        font = QtGui.QFont()
+        font.setPointSize(19)
         self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
         self.addLecturerBtn = QtWidgets.QPushButton(self.lecturerListPage)
-        self.addLecturerBtn.setObjectName(u"addLecturerBtn")
         self.addLecturerBtn.setGeometry(QtCore.QRect(10, 100, 131, 41))
         self.addLecturerBtn.setMinimumSize(QtCore.QSize(120, 41))
-        self.addLecturerBtn.setStyleSheet(u"QPushButton {\n"
-                                          "	background-color: rgb(31, 149, 239);\n"
-                                          "	color: white;\n"
-                                          "	border: none;\n"
-                                          "	border-radius: 8px;\n"
-                                          "	font-weight: bold;\n"
-                                          "	font-size: 15px;\n"
-                                          "}")
+        self.addLecturerBtn.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 8px;\n"
+"    font-weight: bold;\n"
+"    font-size: 15px;\n"
+"}")
+        self.addLecturerBtn.setObjectName("addLecturerBtn")
         self.lecturerTableWidget = QtWidgets.QTableWidget(self.lecturerListPage)
-        if (self.lecturerTableWidget.columnCount() < 5):
-            self.lecturerTableWidget.setColumnCount(5)
-        __qtablewidgetitem5 = QtWidgets.QTableWidgetItem()
-        self.lecturerTableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QtWidgets.QTableWidgetItem()
-        self.lecturerTableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QtWidgets.QTableWidgetItem()
-        self.lecturerTableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QtWidgets.QTableWidgetItem()
-        self.lecturerTableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem8)
-        __qtablewidgetitem9 = QtWidgets.QTableWidgetItem()
-        self.lecturerTableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem9)
-        self.lecturerTableWidget.setObjectName(u"lecturerTableWidget")
-        self.lecturerTableWidget.setGeometry(QtCore.QRect(10, 210, 650, 371))
-        self.lecturerTableWidget.setStyleSheet(u"QHeaderView::section {\n"
-                                               "	font-weight: bold;\n"
-                                               "	background-color: rgb(31, 149, 239);\n"
-                                               "	color: white\n"
-                                               "}\n"
-                                               "\n"
-                                               "QTableWidget {\n"
-                                               "	alternate-background-color: #BOEDF8;\n"
-                                               "	background-color: #F4F9FA;\n"
-                                               "}")
+        self.lecturerTableWidget.setGeometry(QtCore.QRect(10, 210, 600, 371))
+        self.lecturerTableWidget.setStyleSheet("QHeaderView::section {\n"
+"    font-weight: bold;\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    alternate-background-color: #BOEDF8;\n"
+"    background-color: #F4F9FA;\n"
+"}")
+        self.lecturerTableWidget.setObjectName("lecturerTableWidget")
+        self.lecturerTableWidget.setColumnCount(5)
+        self.lecturerTableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.lecturerTableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.lecturerTableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.lecturerTableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.lecturerTableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.lecturerTableWidget.setHorizontalHeaderItem(4, item)
         self.widget = QtWidgets.QWidget(self.lecturerListPage)
-        self.widget.setObjectName(u"widget")
         self.widget.setGeometry(QtCore.QRect(10, 160, 508, 35))
+        self.widget.setObjectName("widget")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.lecturerGender_comboBox = QtWidgets.QComboBox(self.widget)
-        self.lecturerGender_comboBox.addItem("")
-        self.lecturerGender_comboBox.addItem("")
-        self.lecturerGender_comboBox.addItem("")
-        self.lecturerGender_comboBox.setObjectName(u"lecturerGender_comboBox")
         self.lecturerGender_comboBox.setMinimumSize(QtCore.QSize(101, 0))
-        self.lecturerGender_comboBox.setStyleSheet(u"QComboBox {\n"
-                                                   "	border: 1px solid rgb(31, 149, 239);\n"
-                                                   "	border-radius: 6px;\n"
-                                                   "	padding-left: 15px;\n"
-                                                   "	height: 31px;\n"
-                                                   "}")
-
+        self.lecturerGender_comboBox.setStyleSheet("QComboBox {\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"    border-radius: 6px;\n"
+"    padding-left: 15px;\n"
+"    height: 31px;\n"
+"}")
+        self.lecturerGender_comboBox.setObjectName("lecturerGender_comboBox")
+        self.lecturerGender_comboBox.addItem("")
+        self.lecturerGender_comboBox.addItem("")
+        self.lecturerGender_comboBox.addItem("")
         self.horizontalLayout_3.addWidget(self.lecturerGender_comboBox)
-
-        self.lecturerMajor_comboBox = QtWidgets.QComboBox(self.widget)
-        self.lecturerMajor_comboBox.addItem("")
-        major_list = get_all_major()
-        print(len(major_list))
-        for major in major_list:
-            self.lecturerMajor_comboBox.addItem(major)
-        self.lecturerMajor_comboBox.setObjectName(u"lecturerMajor_comboBox")
-        self.lecturerMajor_comboBox.setMinimumSize(QtCore.QSize(132, 0))
-        self.lecturerMajor_comboBox.setStyleSheet(u"QComboBox {\n"
-                                                  "	border: 1px solid rgb(31, 149, 239);\n"
-                                                  "	border-radius: 6px;\n"
-                                                  "	padding-left: 15px;\n"
-                                                  "	height: 31px;\n"
-                                                  "}")
-
-        self.horizontalLayout_3.addWidget(self.lecturerMajor_comboBox)
-
+        self.lectorerMajor_comboBox = QtWidgets.QComboBox(self.widget)
+        self.lectorerMajor_comboBox.setMinimumSize(QtCore.QSize(132, 0))
+        self.lectorerMajor_comboBox.setStyleSheet("QComboBox {\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"    border-radius: 6px;\n"
+"    padding-left: 15px;\n"
+"    height: 31px;\n"
+"}")
+        self.lectorerMajor_comboBox.setObjectName("lectorerMajor_comboBox")
+        self.lectorerMajor_comboBox.addItem("")
+        self.lectorerMajor_comboBox.addItem("")
+        self.lectorerMajor_comboBox.addItem("")
+        self.lectorerMajor_comboBox.addItem("")
+        self.horizontalLayout_3.addWidget(self.lectorerMajor_comboBox)
         self.lecturerSearchBarEdit = QtWidgets.QLineEdit(self.widget)
-        self.lecturerSearchBarEdit.setObjectName(u"lecturerSearchBarEdit")
         self.lecturerSearchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
-        self.lecturerSearchBarEdit.setStyleSheet(u"QLineEdit {\n"
-                                                 "	padding-left: 10px;\n"
-                                                 "	border-radius: 8px;\n"
-                                                 "	border: 1px solid rgb(31, 149, 239);\n"
-                                                 "}")
-
+        self.lecturerSearchBarEdit.setStyleSheet("QLineEdit {\n"
+"    padding-left: 10px;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"}")
+        self.lecturerSearchBarEdit.setObjectName("lecturerSearchBarEdit")
         self.horizontalLayout_3.addWidget(self.lecturerSearchBarEdit)
-
         self.stackedWidget.addWidget(self.lecturerListPage)
         self.majorListPage = QtWidgets.QWidget()
         self.majorListPage.setObjectName("majorListPage")
@@ -328,26 +319,26 @@ class Ui_MainWindow(object):
         self.addMajorBtn.setGeometry(QtCore.QRect(10, 100, 120, 41))
         self.addMajorBtn.setMinimumSize(QtCore.QSize(120, 41))
         self.addMajorBtn.setStyleSheet("QPushButton {\n"
-                                       "    background-color: rgb(31, 149, 239);\n"
-                                       "    color: white;\n"
-                                       "    border: none;\n"
-                                       "    border-radius: 8px;\n"
-                                       "    font-weight: bold;\n"
-                                       "    font-size: 15px;\n"
-                                       "}")
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 8px;\n"
+"    font-weight: bold;\n"
+"    font-size: 15px;\n"
+"}")
         self.addMajorBtn.setObjectName("addMajorBtn")
         self.majorTableWidget = QtWidgets.QTableWidget(self.majorListPage)
-        self.majorTableWidget.setGeometry(QtCore.QRect(10, 210, 650, 371))
+        self.majorTableWidget.setGeometry(QtCore.QRect(10, 210, 501, 371))
         self.majorTableWidget.setStyleSheet("QHeaderView::section {\n"
-                                            "    font-weight: bold;\n"
-                                            "    background-color: rgb(31, 149, 239);\n"
-                                            "    color: white\n"
-                                            "}\n"
-                                            "\n"
-                                            "QTableWidget {\n"
-                                            "    alternate-background-color: #BOEDF8;\n"
-                                            "    background-color: #F4F9FA;\n"
-                                            "}")
+"    font-weight: bold;\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    alternate-background-color: #BOEDF8;\n"
+"    background-color: #F4F9FA;\n"
+"}")
         self.majorTableWidget.setObjectName("majorTableWidget")
         self.majorTableWidget.setColumnCount(5)
         self.majorTableWidget.setRowCount(0)
@@ -365,10 +356,10 @@ class Ui_MainWindow(object):
         self.majorSearchBarEdit.setGeometry(QtCore.QRect(10, 160, 261, 31))
         self.majorSearchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
         self.majorSearchBarEdit.setStyleSheet("QLineEdit {\n"
-                                              "    padding-left: 10px;\n"
-                                              "    border-radius: 8px;\n"
-                                              "    border: 1px solid rgb(31, 149, 239);\n"
-                                              "}")
+"    padding-left: 10px;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"}")
         self.majorSearchBarEdit.setObjectName("majorSearchBarEdit")
         self.stackedWidget.addWidget(self.majorListPage)
         self.classListPage = QtWidgets.QWidget()
@@ -416,14 +407,10 @@ class Ui_MainWindow(object):
         self.gender_comboBox.setItemText(0, _translate("MainWindow", "Giới tính"))
         self.gender_comboBox.setItemText(1, _translate("MainWindow", "Nam"))
         self.gender_comboBox.setItemText(2, _translate("MainWindow", "Nữ"))
-
-        #get major list
-        major_list = get_all_major()
         self.major_comboBox.setItemText(0, _translate("MainWindow", "Ngành"))
-        major_index = 1
-        print(len(major_list))
-        for major in major_list:
-            self.major_comboBox.setItemText(major_index, _translate("MainWindow", major_list[major_index - 1]))
+        self.major_comboBox.setItemText(1, _translate("MainWindow", "Công nghệ thông tin"))
+        self.major_comboBox.setItemText(2, _translate("MainWindow", "Hệ thống thông tin"))
+        self.major_comboBox.setItemText(3, _translate("MainWindow", "Khoa học máy tính"))
         self.searchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm sinh viên ..."))
         self.label_4.setText(_translate("MainWindow", "Danh sách giảng viên"))
         self.addLecturerBtn.setText(_translate("MainWindow", "Thêm giảng viên"))
@@ -440,11 +427,10 @@ class Ui_MainWindow(object):
         self.lecturerGender_comboBox.setItemText(0, _translate("MainWindow", "Giới tính"))
         self.lecturerGender_comboBox.setItemText(1, _translate("MainWindow", "Nam"))
         self.lecturerGender_comboBox.setItemText(2, _translate("MainWindow", "Nữ"))
-        self.lecturerMajor_comboBox.setItemText(0, _translate("MainWindow", "Ngành"))
-        major_index = 1
-        print(len(major_list))
-        for major in major_list:
-            self.lecturerMajor_comboBox.setItemText(major_index, _translate("MainWindow", major_list[major_index - 1]))
+        self.lectorerMajor_comboBox.setItemText(0, _translate("MainWindow", "Ngành"))
+        self.lectorerMajor_comboBox.setItemText(1, _translate("MainWindow", "Công nghệ thông tin"))
+        self.lectorerMajor_comboBox.setItemText(2, _translate("MainWindow", "Hệ thống thông tin"))
+        self.lectorerMajor_comboBox.setItemText(3, _translate("MainWindow", "Khoa học máy tính"))
         self.lecturerSearchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm giảng viên ..."))
         self.label_8.setText(_translate("MainWindow", "Danh sách ngành"))
         self.addMajorBtn.setText(_translate("MainWindow", "Thêm ngành"))
@@ -461,6 +447,4 @@ class Ui_MainWindow(object):
         self.majorSearchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm ngành ..."))
         self.label_6.setText(_translate("MainWindow", "class list"))
         self.label_7.setText(_translate("MainWindow", "course list"))
-
-
 import ava_rc

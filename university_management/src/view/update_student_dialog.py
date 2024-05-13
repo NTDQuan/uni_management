@@ -237,6 +237,7 @@ class Ui_update_student_dialog(QDialog):
         self.update_Btn.clicked.connect(self.update_student)
 
 
+
     def update_student(self):
         new_last_name ,new_first_name = getFirstAndLastName(self.update_studentNameEdit.text())
         params = {
