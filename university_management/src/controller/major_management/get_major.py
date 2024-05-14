@@ -1,5 +1,5 @@
 from database.initSession import session
-from sqlalchemy import func, distinct
+from sqlalchemy import func, distinct, or_
 from sqlalchemy.orm import sessionmaker
 
 from university_management.src.database.Connect import engine
@@ -46,6 +46,19 @@ def get_full_major_info():
     columns = [Major.major_id, Major.major_name]
     query = session.query(*columns)
     result = query.first()
+    session.close()
+    return result
+
+def search_major(input_query):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    columns = [Major.major_id, Major.major_name, func.count(distinct(Student.student_id)).label('num_students'), func.count(distinct(Lecturer.lecturer_id)).label('num_lecturers')]
+
+    query = session.query(*columns).outerjoin(Student, Major.major_id == Student.major_id).outerjoin(Lecturer, Major.major_id == Lecturer.major_id).group_by(Major.major_id)
+
+    query = query.filter(or_(Major.major_id.like(input_query), Major.major_name.like(input_query)))
+
+    result = query.all()
     session.close()
     return result
 

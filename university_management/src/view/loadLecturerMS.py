@@ -3,16 +3,17 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QWidget, QHBoxLayout,
 
 from university_management.src.controller.class_management.get_class_info import get_class_for_display_table
 from university_management.src.controller.class_management.remove_class import delete_class
-from university_management.src.controller.course_management.get_course_info import get_course_for_display_table
+from university_management.src.controller.course_management.get_course_info import get_course_for_display_table, \
+    search_course
 from university_management.src.controller.course_management.remove_course import delete_course
 from university_management.src.controller.major_management.get_major import get_major_id, get_major_for_display_table, \
-    get_all_major
+    get_all_major, search_major
 from university_management.src.controller.major_management.remove_major import delete_major
 from university_management.src.controller.user_management.remove_user import deleteUser, deleteStudent, deleteLecturer
 from university_management.src.util.getGenderId import get_gender_id
 from university_management.src.view.lecturerMainScreen import Ui_MainWindow
 from university_management.src.controller.user_management.get_user_info import get_student_for_display_table, \
-    search_student, get_lecturer_for_display_table
+    search_student, get_lecturer_for_display_table, search_lecturer
 
 
 class LecturerMainScreen(QMainWindow, Ui_MainWindow):
@@ -48,15 +49,19 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.load_lecturers_info()
         self.lecturerGender_comboBox.currentIndexChanged.connect(self.reload_lecturer_data)
         self.lecturerMajor_comboBox.currentIndexChanged.connect(self.reload_lecturer_data)
+        self.lecturerSearchBarEdit.textChanged.connect(self.search_lecturer)
 
         #Load major data
         self.load_majors_info()
+        self.majorSearchBarEdit.textChanged.connect(self.search_major)
 
         #Load course data
         self.load_courses_info()
+        self.courseSearchBarEdit.textChanged.connect(self.search_course)
 
         #Load class data
         self.load_classes_info()
+        self.classSearchBarEdit.textChanged.connect(self.search_class)
 
 
         #Controll student list columns width
@@ -154,6 +159,24 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.load_lecturers_info()
         self.load_majors_info()
 
+    def search_lecturer(self):
+        self.majorTableWidget.setRowCount(0)
+        query = self.lecturerSearchBarEdit.text()
+        if query == "":
+            self.reload_lecturer_data()
+        else:
+            data = search_lecturer(query)
+            for row_index, row_data in enumerate(data):
+                self.lecturerTableWidget.insertRow(row_index)
+                for col_index, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.lecturerTableWidget.setItem(row_index, col_index, item)
+
+                # Action widget
+                double_button_widget = DoubleButtonWidgetLecturers(row_index, row_data, self)
+                self.lecturerTableWidget.setCellWidget(row_index, 4, double_button_widget)
+                self.lecturerTableWidget.setRowHeight(row_index, 50)
+
     # student list page function
     def open_addStudent_dialog(self):
         from add_student_dialog import Ui_add_student_dialog
@@ -207,17 +230,20 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
     def search_student(self):
         self.tableWidget.setRowCount(0)
         query = self.searchBarEdit.text()
-        data = search_student(query)
-        for row_index, row_data in enumerate(data):
-            self.tableWidget.insertRow(row_index)
-            for col_index, cell_data in enumerate(row_data):
-                item = QTableWidgetItem(str(cell_data))
-                self.tableWidget.setItem(row_index, col_index, item)
+        if query == "":
+            self.reload_data()
+        else:
+            data = search_student(query)
+            for row_index, row_data in enumerate(data):
+                self.tableWidget.insertRow(row_index)
+                for col_index, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.tableWidget.setItem(row_index, col_index, item)
 
-            # Action widget
-            double_button_widget = DoubleButtonWidgetStudents(row_index, row_data, self)
-            self.tableWidget.setCellWidget(row_index, 4, double_button_widget)
-            self.tableWidget.setRowHeight(row_index, 50)
+                # Action widget
+                double_button_widget = DoubleButtonWidgetStudents(row_index, row_data, self)
+                self.tableWidget.setCellWidget(row_index, 4, double_button_widget)
+                self.tableWidget.setRowHeight(row_index, 50)
 
     # major list page function
     def open_addMajor_dialog(self):
@@ -283,6 +309,24 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
         self.majorListUpdated.emit(new_major_list)
 
+    def search_major(self):
+        self.majorTableWidget.setRowCount(0)
+        query = self.majorSearchBarEdit.text()
+        if query == "":
+            self.reload_majors_data()
+        else:
+            data = search_major(query)
+            for row_index, row_data in enumerate(data):
+                self.majorTableWidget.insertRow(row_index)
+                for col_index, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.majorTableWidget.setItem(row_index, col_index, item)
+
+                # Action widget
+                double_button_widget = DoubleButtonWidgetStudents(row_index, row_data, self)
+                self.majorTableWidget.setCellWidget(row_index, 4, double_button_widget)
+                self.majorTableWidget.setRowHeight(row_index, 50)
+
     # Course list page function
     def open_addCourse_dialog(self):
         from add_course_dialog import Ui_add_course_dialog
@@ -325,6 +369,24 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.courseTableWidget.clearContents()
         self.load_courses_info()
 
+    def search_course(self):
+        self.courseTableWidget.setRowCount(0)
+        query = self.courseSearchBarEdit.text()
+        if query == "":
+            self.reload_courses_data()
+        else:
+            data = search_course(query)
+            for row_index, row_data in enumerate(data):
+                self.courseTableWidget.insertRow(row_index)
+                for col_index, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.courseTableWidget.setItem(row_index, col_index, item)
+
+                # Action widget
+                double_button_widget = DoubleButtonWidgetCourses(row_index, row_data, self)
+                self.courseTableWidget.setCellWidget(row_index, 4, double_button_widget)
+                self.courseTableWidget.setRowHeight(row_index, 50)
+
     # Class list page function
     def open_addClass_dialog(self):
         from add_class_dialog import Ui_add_class_dialog
@@ -357,6 +419,24 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         print("reload class data")
         self.classTableWidget.clearContents()
         self.load_classes_info()
+
+    def search_class(self):
+        self.classTableWidget.setRowCount(0)
+        query = self.classSearchBarEdit.text()
+        if query == "":
+            self.reload_classes_data()
+        else:
+            data = search_course(query)
+            for row_index, row_data in enumerate(data):
+                self.classTableWidget.insertRow(row_index)
+                for col_index, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.classTableWidget.setItem(row_index, col_index, item)
+
+                # Action widget
+                double_button_widget = DoubleButtonWidgetClasses(row_index, row_data, self)
+                self.classTableWidget.setCellWidget(row_index, 10, double_button_widget)
+                self.classTableWidget.setRowHeight(row_index, 50)
 
 class DoubleButtonWidgetStudents(QWidget):
     def __init__(self, row_index, row_data, lecturerMainScreen):

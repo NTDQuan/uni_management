@@ -1,3 +1,4 @@
+from sqlalchemy import or_
 from sqlalchemy.orm import sessionmaker
 
 from university_management.src.database.Connect import engine
@@ -46,4 +47,17 @@ def get_all_course():
         course_list.append(row.course_name)
     session.close()
     return course_list
+
+def search_course(input_query):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    columns = [Course.course_id, Course.course_name, Course.course_credit, Major.major_name]
+
+    query = session.query(*columns).join(Major, Major.major_id == Course.major_id)
+
+    query = query.filter(or_(Course.course_id.like(input_query), Course.course_name.like(input_query)))
+
+    result = query.all()
+    session.close()
+    return result
 

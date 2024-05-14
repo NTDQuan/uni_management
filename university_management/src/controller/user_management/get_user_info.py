@@ -40,7 +40,7 @@ def get_full_student_info(studentId):
     return result
 
 
-def search_student(query_id):
+def search_student(input_query):
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Student.student_id, func.concat(Student.last_name, " ", Student.first_name).label("full_name"),
@@ -48,7 +48,7 @@ def search_student(query_id):
 
     query = session.query(*columns).join(Major, Major.major_id == Student.major_id).join(Gender, Gender.gender_id == Student.gender_id)
 
-    query = query.filter(Student.student_id == query_id)
+    query = query.filter(or_(Student.student_id == input_query, Student.first_name.like(input_query), Student.last_name.like(input_query), func.concat(Student.last_name, " ", Student.first_name).label("full_name") == input_query))
 
     result = query.all()
     session.close()
@@ -104,3 +104,16 @@ def get_all_lecturer():
         lecturer_list.append(row.last_name + " " + row.first_name)
     session.close()
     return lecturer_list
+
+def search_lecturer(input_query):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    columns = [Lecturer.lecturer_id, Lecturer.first_name, Lecturer.last_name, Lecturer.telephone, Lecturer.address, Gender.gender_name, Major.major_name]
+
+    query = session.query(*columns).join(Major, Major.major_id == Lecturer.major_id).join(Gender, Gender.gender_id == Lecturer.gender_id)
+
+    query = query.filter(or_(Lecturer.lecturer_id == input_query, Lecturer.first_name.like(input_query), Lecturer.last_name.like(input_query), func.concat(Lecturer.last_name, " ", Lecturer.first_name).label("full_name") == input_query))
+
+    result = query.all()
+    session.close()
+    return result
