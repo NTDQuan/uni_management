@@ -1,6 +1,8 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QWidget, QHBoxLayout, QPushButton, QMessageBox
 
+from university_management.src.controller.course_management.get_course_info import get_course_for_display_table
+from university_management.src.controller.course_management.remove_course import delete_course
 from university_management.src.controller.major_management.get_major import get_major_id, get_major_for_display_table, \
     get_all_major
 from university_management.src.controller.major_management.remove_major import delete_major
@@ -27,9 +29,11 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.classListBtn.clicked.connect(self.switch_to_classList_page)
         self.courseListBtn.clicked.connect(self.switch_to_courseList_page)
 
+        #add Btn logic
         self.addBtn.clicked.connect(self.open_addStudent_dialog)
         self.addLecturerBtn.clicked.connect(self.open_addLecturer_dialog)
         self.addMajorBtn.clicked.connect(self.open_addMajor_dialog)
+        self.addCourseBtn.clicked.connect(self.open_addCourse_dialog)
 
         #Load student data
         self.load_students_info()
@@ -44,6 +48,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
         #Load major data
         self.load_majors_info()
+
+        #Load course data
+        self.load_courses_info()
 
 
         #Controll student list columns width
@@ -66,6 +73,13 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.majorTableWidget.setColumnWidth(2, 100)
         self.majorTableWidget.setColumnWidth(3, 100)
         self.majorTableWidget.setColumnWidth(4, 180)
+
+        #Controll course list columns width
+        self.courseTableWidget.setColumnWidth(0, 100)
+        self.courseTableWidget.setColumnWidth(1, 150)
+        self.courseTableWidget.setColumnWidth(2, 100)
+        self.courseTableWidget.setColumnWidth(3, 100)
+        self.courseTableWidget.setColumnWidth(4, 180)
 
     def switch_to_studentList_page(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -260,6 +274,48 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
         self.majorListUpdated.emit(new_major_list)
 
+    # Course list page function
+    def open_addCourse_dialog(self):
+        from add_course_dialog import Ui_add_course_dialog
+        addCourse_dialog = Ui_add_course_dialog(self)
+        result = addCourse_dialog.exec()
+        if result == Ui_add_course_dialog.Accepted:
+            print("accept")
+            self.reload_courses_data()
+
+    def load_courses_info(self):
+        print("Loading all course data...")
+        self.courseTableWidget.setRowCount(0)
+        data = self.get_course_data_from_table()
+        for row_index, row_data in enumerate(data):
+            self.courseTableWidget.insertRow(row_index)
+            for col_index, cell_data in enumerate(row_data):
+                item = QTableWidgetItem(str(cell_data))
+                self.courseTableWidget.setItem(row_index, col_index, item)
+
+            # Action widget
+            double_button_widget = DoubleButtonWidgetCourses(row_index, row_data, self)
+            self.courseTableWidget.setCellWidget(row_index, 4, double_button_widget)
+            self.courseTableWidget.setRowHeight(row_index, 50)
+
+    def get_course_data_from_table(self):
+        data = get_course_for_display_table()
+        if data:
+            for course in data:
+                print(f"course ID: {course[0]}")
+                print(f"course name: {course[1]}")
+                print(f"course credit: {course[2]}")
+                print(f"Belong to major: {course[3]}")
+                print("-" * 20)
+        else:
+            print("No course found based on the provided filters.")
+        return data
+
+    def reload_courses_data(self):
+        print("reload major data")
+        self.courseTableWidget.clearContents()
+        self.load_courses_info()
+
 class DoubleButtonWidgetStudents(QWidget):
     def __init__(self, row_index, row_data, lecturerMainScreen):
         super().__init__()
@@ -402,3 +458,51 @@ class DoubleButtonWidgetMajors(QWidget):
             delete_major(self.lecturer_id)
 
         self.lecturerMainScreen.reload_majors_data()
+
+class DoubleButtonWidgetCourses(QWidget):
+    def __init__(self, row_index, row_data, lecturerMainScreen):
+        super().__init__()
+
+        self.row_index = row_index
+        self.row_data = row_data
+        self.lecturerMainScreen = lecturerMainScreen
+
+        self.course_id = self.row_data[0]
+
+        layout = QHBoxLayout(self)
+
+        self.edit_button = QPushButton("Sửa", self)
+        self.edit_button.setStyleSheet("background-color: blue; color: white")
+        self.edit_button.setFixedSize(61, 31)
+
+        self.delete_button = QPushButton("Xóa", self)
+        self.delete_button.setStyleSheet("background-color: red; color: white")
+        self.delete_button.setFixedSize(61, 31)
+
+        layout.addWidget(self.edit_button)
+        layout.addWidget(self.delete_button)
+
+        #Button logic
+        self.edit_button.clicked.connect(self.edit_clicked)
+        self.delete_button.clicked.connect(self.delete_clicked)
+
+    def edit_clicked(self):
+        from update_course_dialog import Ui_update_course_dialog
+        self.update_course_dialog = Ui_update_course_dialog(self.row_index, self.row_data)
+
+        # Connect the custom signal reload data after update record
+        self.update_course_dialog.data_updated.connect(self.lecturerMainScreen.reload_courses_data)
+
+        self.update_course_dialog.exec()
+
+    def delete_clicked(self):
+        message = QMessageBox.question(
+            self,
+            'Xác nhận', 'Bạn có chắc chắn muốn xóa môn học này không ?',
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if message == QMessageBox.StandardButton.Yes:
+            delete_course(self.course_id)
+
+        self.lecturerMainScreen.reload_courses_data()

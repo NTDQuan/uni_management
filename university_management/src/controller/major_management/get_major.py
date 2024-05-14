@@ -40,7 +40,7 @@ def get_major_for_display_table():
 
     return result
 
-def get_full_major_info(lecturerId):
+def get_full_major_info():
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Major.major_id, Major.major_name]

@@ -85,6 +85,7 @@ def run():
 '''
 
 def run():
+    create_all_table()
     app = QApplication(sys.argv)
     login_view = LoginView()
     login_view.showLogin()

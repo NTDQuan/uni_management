@@ -264,13 +264,13 @@ class Ui_MainWindow(object):
         self.lecturerTableWidget.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.lecturerTableWidget.setHorizontalHeaderItem(4, item)
-        self.widget = QtWidgets.QWidget(self.lecturerListPage)
-        self.widget.setGeometry(QtCore.QRect(10, 160, 508, 35))
-        self.widget.setObjectName("widget")
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget)
+        self.layoutWidget1 = QtWidgets.QWidget(self.lecturerListPage)
+        self.layoutWidget1.setGeometry(QtCore.QRect(10, 160, 508, 35))
+        self.layoutWidget1.setObjectName("layoutWidget1")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.lecturerGender_comboBox = QtWidgets.QComboBox(self.widget)
+        self.lecturerGender_comboBox = QtWidgets.QComboBox(self.layoutWidget1)
         self.lecturerGender_comboBox.setMinimumSize(QtCore.QSize(101, 0))
         self.lecturerGender_comboBox.setStyleSheet("QComboBox {\n"
 "    border: 1px solid rgb(31, 149, 239);\n"
@@ -283,7 +283,7 @@ class Ui_MainWindow(object):
         self.lecturerGender_comboBox.addItem("")
         self.lecturerGender_comboBox.addItem("")
         self.horizontalLayout_3.addWidget(self.lecturerGender_comboBox)
-        self.lectorerMajor_comboBox = QtWidgets.QComboBox(self.widget)
+        self.lectorerMajor_comboBox = QtWidgets.QComboBox(self.layoutWidget1)
         self.lectorerMajor_comboBox.setMinimumSize(QtCore.QSize(132, 0))
         self.lectorerMajor_comboBox.setStyleSheet("QComboBox {\n"
 "    border: 1px solid rgb(31, 149, 239);\n"
@@ -297,7 +297,7 @@ class Ui_MainWindow(object):
         self.lectorerMajor_comboBox.addItem("")
         self.lectorerMajor_comboBox.addItem("")
         self.horizontalLayout_3.addWidget(self.lectorerMajor_comboBox)
-        self.lecturerSearchBarEdit = QtWidgets.QLineEdit(self.widget)
+        self.lecturerSearchBarEdit = QtWidgets.QLineEdit(self.layoutWidget1)
         self.lecturerSearchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
         self.lecturerSearchBarEdit.setStyleSheet("QLineEdit {\n"
 "    padding-left: 10px;\n"
@@ -370,9 +370,58 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.classListPage)
         self.courseListPage = QtWidgets.QWidget()
         self.courseListPage.setObjectName("courseListPage")
-        self.label_7 = QtWidgets.QLabel(self.courseListPage)
-        self.label_7.setGeometry(QtCore.QRect(280, 280, 61, 51))
-        self.label_7.setObjectName("label_7")
+        self.label_9 = QtWidgets.QLabel(self.courseListPage)
+        self.label_9.setGeometry(QtCore.QRect(10, 10, 251, 71))
+        font = QtGui.QFont()
+        font.setPointSize(19)
+        self.label_9.setFont(font)
+        self.label_9.setObjectName("label_9")
+        self.addCourseBtn = QtWidgets.QPushButton(self.courseListPage)
+        self.addCourseBtn.setGeometry(QtCore.QRect(10, 100, 131, 41))
+        self.addCourseBtn.setMinimumSize(QtCore.QSize(120, 41))
+        self.addCourseBtn.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white;\n"
+"    border: none;\n"
+"    border-radius: 8px;\n"
+"    font-weight: bold;\n"
+"    font-size: 15px;\n"
+"}")
+        self.addCourseBtn.setObjectName("addCourseBtn")
+        self.courseTableWidget = QtWidgets.QTableWidget(self.courseListPage)
+        self.courseTableWidget.setGeometry(QtCore.QRect(10, 210, 501, 371))
+        self.courseTableWidget.setStyleSheet("QHeaderView::section {\n"
+"    font-weight: bold;\n"
+"    background-color: rgb(31, 149, 239);\n"
+"    color: white\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    alternate-background-color: #BOEDF8;\n"
+"    background-color: #F4F9FA;\n"
+"}")
+        self.courseTableWidget.setObjectName("courseTableWidget")
+        self.courseTableWidget.setColumnCount(5)
+        self.courseTableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.courseTableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.courseTableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.courseTableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.courseTableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.courseTableWidget.setHorizontalHeaderItem(4, item)
+        self.courseSearchBarEdit = QtWidgets.QLineEdit(self.courseListPage)
+        self.courseSearchBarEdit.setGeometry(QtCore.QRect(10, 160, 261, 31))
+        self.courseSearchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
+        self.courseSearchBarEdit.setStyleSheet("QLineEdit {\n"
+"    padding-left: 10px;\n"
+"    border-radius: 8px;\n"
+"    border: 1px solid rgb(31, 149, 239);\n"
+"}")
+        self.courseSearchBarEdit.setObjectName("courseSearchBarEdit")
         self.stackedWidget.addWidget(self.courseListPage)
         self.verticalLayout_3.addWidget(self.stackedWidget)
         self.gridLayout.addWidget(self.widget_2, 0, 1, 1, 1)
@@ -446,5 +495,17 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Thao tác"))
         self.majorSearchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm ngành ..."))
         self.label_6.setText(_translate("MainWindow", "class list"))
-        self.label_7.setText(_translate("MainWindow", "course list"))
+        self.label_9.setText(_translate("MainWindow", "Danh sách môn học"))
+        self.addCourseBtn.setText(_translate("MainWindow", "Thêm môn học"))
+        item = self.courseTableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Mã môn học"))
+        item = self.courseTableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Tên môn học"))
+        item = self.courseTableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Tín chỉ"))
+        item = self.courseTableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Ngành"))
+        item = self.courseTableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Thao tác"))
+        self.courseSearchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm môn học ..."))
 import ava_rc

@@ -80,7 +80,7 @@ class Lecturer(Base):
 class Course(Base):
     __tablename__ = "course"
 
-    course_id: Mapped[int] = mapped_column(primary_key=True)
+    course_id: Mapped[str] = mapped_column(String(50), primary_key=True)
     course_name: Mapped[str] = mapped_column(String(50))
     course_credit: Mapped[int] = mapped_column(Integer)
     major_id: Mapped[int] = mapped_column(ForeignKey("major.major_id"))
@@ -96,7 +96,7 @@ class Class(Base):
     year: Mapped[int] = mapped_column(Integer)
     lecturer_id: Mapped[int] = mapped_column(ForeignKey(Lecturer.lecturer_id), nullable=True)
     rclass: Mapped["Lecturer"] = relationship(back_populates="class_id")
-    course_id: Mapped[int] = mapped_column(ForeignKey("course.course_id"))
+    course_id: Mapped[str] = mapped_column(ForeignKey("course.course_id"))
     course: Mapped["Course"] = relationship(back_populates="cclass")
     status: Mapped[str] = mapped_column(String(50))
     start_period: Mapped[int] = mapped_column(Integer)
