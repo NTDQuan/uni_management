@@ -1,10 +1,11 @@
 from database.initSession import session
 from model.Model import Student, Major, Gender, Lecturer
-from sqlalchemy import or_, func
+from sqlalchemy import or_, func, and_
 from sqlalchemy.orm import sessionmaker
 
 from university_management.src.controller.major_management.get_major import get_major_id
 from university_management.src.database.Connect import engine
+from university_management.src.util.getFirstAndLastName import getFirstAndLastName
 
 
 def get_student_for_display_table(major_filter, gender_filter):
@@ -83,3 +84,23 @@ def get_full_lecturer_info(lecturerId):
     result = query.first()
     session.close()
     return result
+
+def get_lecturer_id(lecturer_name):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    print("Get lecturer id...")
+    last_name, first_name = getFirstAndLastName(lecturer_name)
+    result = session.query(Lecturer).filter(and_(Lecturer.last_name == last_name, Lecturer.first_name == first_name)).first()
+    print(result.lecturer_id)
+    session.close()
+    return result.lecturer_id
+
+def get_all_lecturer():
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    result = session.query(Lecturer).all()
+    lecturer_list = []
+    for row in result:
+        lecturer_list.append(row.last_name + " " + row.first_name)
+    session.close()
+    return lecturer_list

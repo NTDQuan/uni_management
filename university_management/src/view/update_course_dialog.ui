@@ -79,6 +79,9 @@ QComboBox {
       </item>
       <item>
        <widget class="QLineEdit" name="courseIDEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>

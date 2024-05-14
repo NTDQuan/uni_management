@@ -82,7 +82,7 @@ QPushButton:checked {
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap>:/newPrefix/default_ava.png</pixmap>
+            <pixmap resource="../asserts/ava.qrc">:/newPrefix/default_ava.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -770,18 +770,155 @@ QTableWidget {
           </widget>
          </widget>
          <widget class="QWidget" name="classListPage">
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="label_10">
            <property name="geometry">
             <rect>
-             <x>316</x>
-             <y>240</y>
-             <width>71</width>
+             <x>10</x>
+             <y>10</y>
+             <width>251</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>19</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Danh sách lớp học</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="addClassBtn">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>100</y>
+             <width>131</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>120</width>
+             <height>41</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	background-color: rgb(31, 149, 239);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-weight: bold;
+	font-size: 15px;
+}</string>
+           </property>
+           <property name="text">
+            <string>Thêm lớp học</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="classSearchBarEdit">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>160</y>
+             <width>261</width>
              <height>31</height>
             </rect>
            </property>
-           <property name="text">
-            <string>class list</string>
+           <property name="minimumSize">
+            <size>
+             <width>261</width>
+             <height>31</height>
+            </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit {
+	padding-left: 10px;
+	border-radius: 8px;
+	border: 1px solid rgb(31, 149, 239);
+}</string>
+           </property>
+           <property name="placeholderText">
+            <string>Tìm lớp ...</string>
+           </property>
+          </widget>
+          <widget class="QTableWidget" name="classTableWidget">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>210</y>
+             <width>731</width>
+             <height>371</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QHeaderView::section {
+	font-weight: bold;
+	background-color: rgb(31, 149, 239);
+	color: white
+}
+
+QTableWidget {
+	alternate-background-color: #BOEDF8;
+	background-color: #F4F9FA;
+}</string>
+           </property>
+           <column>
+            <property name="text">
+             <string>Mã lớp học</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Tên lớp học</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Kì</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Năm học</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Giảng viên</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Môn học</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Tiết bắt đầu</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Tiết kết thúc</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Thứ</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Trạng thái</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Thao tác</string>
+            </property>
+           </column>
           </widget>
          </widget>
          <widget class="QWidget" name="courseListPage">

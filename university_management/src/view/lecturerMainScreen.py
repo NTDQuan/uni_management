@@ -373,9 +373,70 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.majorListPage)
         self.classListPage = QtWidgets.QWidget()
         self.classListPage.setObjectName("classListPage")
-        self.label_6 = QtWidgets.QLabel(self.classListPage)
-        self.label_6.setGeometry(QtCore.QRect(316, 240, 71, 31))
-        self.label_6.setObjectName("label_6")
+        self.label_10 = QtWidgets.QLabel(self.classListPage)
+        self.label_10.setGeometry(QtCore.QRect(10, 10, 251, 71))
+        font = QtGui.QFont()
+        font.setPointSize(19)
+        self.label_10.setFont(font)
+        self.label_10.setObjectName("label_10")
+        self.addClassBtn = QtWidgets.QPushButton(self.classListPage)
+        self.addClassBtn.setGeometry(QtCore.QRect(10, 100, 131, 41))
+        self.addClassBtn.setMinimumSize(QtCore.QSize(120, 41))
+        self.addClassBtn.setStyleSheet("QPushButton {\n"
+                                       "    background-color: rgb(31, 149, 239);\n"
+                                       "    color: white;\n"
+                                       "    border: none;\n"
+                                       "    border-radius: 8px;\n"
+                                       "    font-weight: bold;\n"
+                                       "    font-size: 15px;\n"
+                                       "}")
+        self.addClassBtn.setObjectName("addClassBtn")
+        self.classSearchBarEdit = QtWidgets.QLineEdit(self.classListPage)
+        self.classSearchBarEdit.setGeometry(QtCore.QRect(10, 160, 261, 31))
+        self.classSearchBarEdit.setMinimumSize(QtCore.QSize(261, 31))
+        self.classSearchBarEdit.setStyleSheet("QLineEdit {\n"
+                                              "    padding-left: 10px;\n"
+                                              "    border-radius: 8px;\n"
+                                              "    border: 1px solid rgb(31, 149, 239);\n"
+                                              "}")
+        self.classSearchBarEdit.setObjectName("classSearchBarEdit")
+        self.classTableWidget = QtWidgets.QTableWidget(self.classListPage)
+        self.classTableWidget.setGeometry(QtCore.QRect(10, 210, 731, 371))
+        self.classTableWidget.setStyleSheet("QHeaderView::section {\n"
+                                            "    font-weight: bold;\n"
+                                            "    background-color: rgb(31, 149, 239);\n"
+                                            "    color: white\n"
+                                            "}\n"
+                                            "\n"
+                                            "QTableWidget {\n"
+                                            "    alternate-background-color: #BOEDF8;\n"
+                                            "    background-color: #F4F9FA;\n"
+                                            "}")
+        self.classTableWidget.setObjectName("classTableWidget")
+        self.classTableWidget.setColumnCount(11)
+        self.classTableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(7, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(8, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(9, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.classTableWidget.setHorizontalHeaderItem(10, item)
         self.stackedWidget.addWidget(self.classListPage)
         self.courseListPage = QtWidgets.QWidget()
         self.courseListPage.setObjectName("courseListPage")
@@ -509,7 +570,31 @@ class Ui_MainWindow(object):
         item = self.majorTableWidget.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Thao tác"))
         self.majorSearchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm ngành ..."))
-        self.label_6.setText(_translate("MainWindow", "class list"))
+        self.label_10.setText(_translate("MainWindow", "Danh sách lớp học"))
+        self.addClassBtn.setText(_translate("MainWindow", "Thêm lớp học"))
+        self.classSearchBarEdit.setPlaceholderText(_translate("MainWindow", "Tìm lớp ..."))
+        item = self.classTableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Mã lớp học"))
+        item = self.classTableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Tên lớp học"))
+        item = self.classTableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Kì"))
+        item = self.classTableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Năm học"))
+        item = self.classTableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Giảng viên"))
+        item = self.classTableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Môn học"))
+        item = self.classTableWidget.horizontalHeaderItem(6)
+        item.setText(_translate("MainWindow", "Trạng thái"))
+        item = self.classTableWidget.horizontalHeaderItem(7)
+        item.setText(_translate("MainWindow", "Tiết Bắt đầu"))
+        item = self.classTableWidget.horizontalHeaderItem(8)
+        item.setText(_translate("MainWindow", "Tiết kết thúc"))
+        item = self.classTableWidget.horizontalHeaderItem(9)
+        item.setText(_translate("MainWindow", "Thứ"))
+        item = self.classTableWidget.horizontalHeaderItem(10)
+        item.setText(_translate("MainWindow", "Thao tác"))
         self.label_9.setText(_translate("MainWindow", "Danh sách môn học"))
         self.addCourseBtn.setText(_translate("MainWindow", "Thêm môn học"))
         item = self.courseTableWidget.horizontalHeaderItem(0)

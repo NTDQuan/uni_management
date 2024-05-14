@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>add_student_dialog</class>
- <widget class="QDialog" name="add_student_dialog">
+ <class>add_class_dialog</class>
+ <widget class="QDialog" name="add_class_dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>466</width>
-    <height>611</height>
+    <height>579</height>
    </rect>
   </property>
   <property name="font">
@@ -84,7 +84,7 @@ QComboBox {
      <x>10</x>
      <y>90</y>
      <width>441</width>
-     <height>451</height>
+     <height>411</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -104,7 +104,7 @@ QComboBox {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="studentIDEdit">
+       <widget class="QLineEdit" name="classIDEdit">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -132,7 +132,7 @@ QComboBox {
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="gender_comboBox">
+         <widget class="QComboBox" name="semester_comboBox">
           <item>
            <property name="text">
             <string>1</string>
@@ -162,7 +162,7 @@ QComboBox {
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="major_comboBox">
+         <widget class="QComboBox" name="year_comboBox">
           <item>
            <property name="text">
             <string>Công nghệ thông tin</string>
@@ -200,14 +200,7 @@ QComboBox {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="studentNameEdit">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
+       <widget class="QComboBox" name="lecturer_comboBox"/>
       </item>
      </layout>
     </item>
@@ -227,42 +220,12 @@ QComboBox {
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="studentPhoneEdit">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
+       <widget class="QComboBox" name="course_comboBox"/>
       </item>
      </layout>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_7">
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="font">
-         <font>
-          <family>Poppins</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Địa chỉ</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="studentAddressEdit">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
@@ -280,7 +243,7 @@ QComboBox {
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="gender_comboBox_2">
+           <widget class="QComboBox" name="startPeriod_comboBox">
             <item>
              <property name="text">
               <string>1</string>
@@ -350,7 +313,7 @@ QComboBox {
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="gender_comboBox_3">
+           <widget class="QComboBox" name="endPeriod_comboBox">
             <item>
              <property name="text">
               <string>1</string>
@@ -420,20 +383,35 @@ QComboBox {
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="major_comboBox_2">
+           <widget class="QComboBox" name="day_comboBox">
             <item>
              <property name="text">
-              <string>Công nghệ thông tin</string>
+              <string>2</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Hệ thống thông tin</string>
+              <string>3</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Khoa học máy tính</string>
+              <string>4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>6</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>7</string>
              </property>
             </item>
            </widget>
@@ -450,7 +428,7 @@ QComboBox {
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>560</y>
+     <y>520</y>
      <width>201</width>
      <height>43</height>
     </rect>

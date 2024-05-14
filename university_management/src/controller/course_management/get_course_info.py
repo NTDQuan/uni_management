@@ -28,3 +28,22 @@ def get_full_course_info(courseId):
     session.close()
     return result
 
+def get_course_id(course_name):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    print("Get course id...")
+    result = session.query(Course).filter(Course.course_name == course_name).first()
+    print(result.course_id)
+    session.close()
+    return result.course_id
+
+def get_all_course():
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    result = session.query(Course).all()
+    course_list = []
+    for row in result:
+        course_list.append(row.course_name)
+    session.close()
+    return course_list
+
