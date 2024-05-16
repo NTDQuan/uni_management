@@ -7,6 +7,9 @@ from university_management.src.model.Model import Major, Student, Lecturer
 
 
 def get_all_major():
+    """
+    get all major name
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(Major).all()
@@ -17,6 +20,9 @@ def get_all_major():
     return major_list
 
 def get_major_id(major_name):
+    """
+    conver major name into major id
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     print("Get major id...")
@@ -26,6 +32,9 @@ def get_major_id(major_name):
     return result.major_id
 
 def get_major_for_display_table():
+    """
+    fetch major data to present in GUI
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     # Define columns to be selected
@@ -40,16 +49,22 @@ def get_major_for_display_table():
 
     return result
 
-def get_full_major_info():
+def get_full_major_info(majorID):
+    """
+    get all column in major table
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Major.major_id, Major.major_name]
     query = session.query(*columns)
-    result = query.first()
+    result = query.filter(Major.major_id == majorID)
     session.close()
     return result
 
 def search_major(input_query):
+    """
+    search for major with major id or major name
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Major.major_id, Major.major_name, func.count(distinct(Student.student_id)).label('num_students'), func.count(distinct(Lecturer.lecturer_id)).label('num_lecturers')]

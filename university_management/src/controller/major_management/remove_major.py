@@ -6,6 +6,11 @@ from university_management.src.model.Model import Major
 
 
 def delete_major(majorID: int) -> None:
+    """
+    delete major from database
+    args:
+        majorID(int): major id to be removed
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     major = session.query(Major).get(majorID)

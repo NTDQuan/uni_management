@@ -5,6 +5,12 @@ from university_management.src.model.Model import Course
 
 
 def editCourse(courseID, course_data):
+    """
+    Edit a course record
+    Arg:
+        courseID(int): course id for finding record
+        course_data(dict): contain new info to update record
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     course = session.query(Course).get(courseID)

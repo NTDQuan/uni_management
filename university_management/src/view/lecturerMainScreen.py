@@ -15,6 +15,9 @@ from university_management.src.controller.major_management.get_major import get_
 
 
 class Ui_MainWindow(object):
+    """
+    Main screen GUI
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(916, 600)

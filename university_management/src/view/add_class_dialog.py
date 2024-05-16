@@ -22,6 +22,9 @@ from university_management.src.model.Model import Major, Class
 
 
 class Ui_add_class_dialog(QDialog):
+    """
+    add class dialog
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("add_class_dialog")
@@ -299,6 +302,9 @@ class Ui_add_class_dialog(QDialog):
         self.cancel_Btn.clicked.connect(self.close)
 
     def getInfo(self):
+        """
+        get user input
+        """
         print("Get info...")
         class_info = {
             "class_id": self.generate_classID(),
@@ -316,6 +322,9 @@ class Ui_add_class_dialog(QDialog):
         return class_info
 
     def add_new_class(self):
+        """
+        add new class
+        """
         class_info = self.getInfo()
         print("add new class...")
         invoker = Invoker()
@@ -325,6 +334,9 @@ class Ui_add_class_dialog(QDialog):
         self.show_added_message()
 
     def generate_classID(self):
+        """
+        generate random class id (1000-9999)
+        """
         classID = randint(1000, 9999)
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -336,11 +348,17 @@ class Ui_add_class_dialog(QDialog):
             return classID
 
     def show_added_message(self):
+        """
+        create message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã thêm thành công")
         msg_box.exec()
 
     def add_class(self):
+        """
+        add class and emit signal
+        """
         self.add_new_class()
         self.accept()

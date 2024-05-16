@@ -19,6 +19,9 @@ from university_management.src.controller.user_management.get_user_info import g
 
 
 class Ui_update_class_dialog(QDialog):
+    """
+    update class dialog GUI
+    """
     data_updated = pyqtSignal()
 
     def __init__(self, row_index, row_data):
@@ -323,6 +326,9 @@ class Ui_update_class_dialog(QDialog):
 
 
     def update_class(self):
+        """
+        update class button logic
+        """
         params = {
             "class_name": self.classNameEdit.text(),
             "semester": int(self.semester_comboBox.currentText()),
@@ -342,6 +348,9 @@ class Ui_update_class_dialog(QDialog):
         self.close()
 
     def show_updated_message(self):
+        """
+        show update message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã sửa thành công")

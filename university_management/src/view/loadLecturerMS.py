@@ -1,7 +1,8 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QWidget, QHBoxLayout, QPushButton, QMessageBox
 
-from university_management.src.controller.class_management.get_class_info import get_class_for_display_table
+from university_management.src.controller.class_management.get_class_info import get_class_for_display_table, \
+    search_class
 from university_management.src.controller.class_management.remove_class import delete_class
 from university_management.src.controller.course_management.get_course_info import get_course_for_display_table, \
     search_course
@@ -17,6 +18,9 @@ from university_management.src.controller.user_management.get_user_info import g
 
 
 class LecturerMainScreen(QMainWindow, Ui_MainWindow):
+    """
+    Handle logic for lecturer main screen
+    """
     majorListUpdated = pyqtSignal(list)
     def __init__(self):
         super().__init__()
@@ -111,6 +115,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentIndex(4)
 
     def open_addLecturer_dialog(self):
+        """
+        handle open add lecturer dialog
+        """
         from add_lecturer_dialog import  Ui_add_lecturer_dialog
         addLecturer_dialog = Ui_add_lecturer_dialog(self)
         result = addLecturer_dialog.exec()
@@ -119,6 +126,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.reload_lecturer_data()
 
     def load_lecturers_info(self):
+        """
+        load lecturer info and put into display
+        """
         print("Loading all lecturer data...")
         self.lecturerTableWidget.setRowCount(0)
 
@@ -139,7 +149,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.lecturerTableWidget.setRowHeight(row_index, 50)
 
     def get_lecturer_data_from_table(self, major_filler, gender_filler):
-
+        """
+        fetch lecturer data
+        """
         data = get_lecturer_for_display_table(major_filler, gender_filler)
 
         if data:
@@ -155,11 +167,17 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         return data
 
     def reload_lecturer_data(self):
+        """
+        reload table display
+        """
         self.lecturerTableWidget.clearContents()
         self.load_lecturers_info()
         self.load_majors_info()
 
     def search_lecturer(self):
+        """
+        search bar logic
+        """
         self.majorTableWidget.setRowCount(0)
         query = self.lecturerSearchBarEdit.text()
         if query == "":
@@ -179,6 +197,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
     # student list page function
     def open_addStudent_dialog(self):
+        """
+        handle open add student dialog
+        """
         from add_student_dialog import Ui_add_student_dialog
         addStudent_dialog = Ui_add_student_dialog(self)
         result = addStudent_dialog.exec()
@@ -187,6 +208,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.reload_data()
 
     def load_students_info(self):
+        """
+        load student info and put into display
+        """
         print("Loading all student data...")
         self.tableWidget.setRowCount(0)
 
@@ -207,7 +231,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.tableWidget.setRowHeight(row_index, 50)
 
     def get_data_from_table(self, major_filler, gender_filler):
-
+        """
+        fetch student data
+        """
         data = get_student_for_display_table(major_filler, gender_filler)
 
         if data:
@@ -223,11 +249,17 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         return data
 
     def reload_data(self):
+        """
+        reload table display
+        """
         self.tableWidget.clearContents()
         self.load_students_info()
         self.load_majors_info()
 
     def search_student(self):
+        """
+        search bar logic
+        """
         self.tableWidget.setRowCount(0)
         query = self.searchBarEdit.text()
         if query == "":
@@ -247,6 +279,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
     # major list page function
     def open_addMajor_dialog(self):
+        """
+        handle open add major dialog
+        """
         from add_major_dialog import Ui_add_major_dialog
         addMajor_dialog = Ui_add_major_dialog(self)
         result = addMajor_dialog.exec()
@@ -255,6 +290,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.reload_majors_data()
 
     def load_majors_info(self):
+        """
+        load major info and put into display
+        """
         print("Loading all major data...")
         self.majorTableWidget.setRowCount(0)
         data = self.get_major_data_from_table()
@@ -270,6 +308,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.majorTableWidget.setRowHeight(row_index, 50)
 
     def get_major_data_from_table(self):
+        """
+        fetch major data
+        """
         data = get_major_for_display_table()
         if data:
             for major in data:
@@ -284,12 +325,18 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         return data
 
     def reload_majors_data(self):
+        """
+        reload table display
+        """
         print("reload major data")
         self.majorTableWidget.clearContents()
         self.load_majors_info()
         self.fetch_and_update_majors()
 
     def fetch_and_update_majors(self):
+        """
+        fetch major data and update all comboBox that use to select major
+        """
         # Fetch updated major list from database
         new_major_list = get_all_major()
         print(new_major_list)
@@ -310,6 +357,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         self.majorListUpdated.emit(new_major_list)
 
     def search_major(self):
+        """
+        search bar logic
+        """
         self.majorTableWidget.setRowCount(0)
         query = self.majorSearchBarEdit.text()
         if query == "":
@@ -329,6 +379,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
     # Course list page function
     def open_addCourse_dialog(self):
+        """
+        handle open add course dialog
+        """
         from add_course_dialog import Ui_add_course_dialog
         addCourse_dialog = Ui_add_course_dialog(self)
         result = addCourse_dialog.exec()
@@ -337,6 +390,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.reload_courses_data()
 
     def load_courses_info(self):
+        """
+        load course info and put into display
+        """
         print("Loading all course data...")
         self.courseTableWidget.setRowCount(0)
         data = self.get_course_data_from_table()
@@ -352,6 +408,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.courseTableWidget.setRowHeight(row_index, 50)
 
     def get_course_data_from_table(self):
+        """
+        fetch course data
+        """
         data = get_course_for_display_table()
         if data:
             for course in data:
@@ -365,11 +424,17 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
         return data
 
     def reload_courses_data(self):
+        """
+        reload table display
+        """
         print("reload major data")
         self.courseTableWidget.clearContents()
         self.load_courses_info()
 
     def search_course(self):
+        """
+        search bar logic
+        """
         self.courseTableWidget.setRowCount(0)
         query = self.courseSearchBarEdit.text()
         if query == "":
@@ -389,6 +454,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
 
     # Class list page function
     def open_addClass_dialog(self):
+        """
+        handle open add class dialog
+        """
         from add_class_dialog import Ui_add_class_dialog
         addClass_dialog = Ui_add_class_dialog(self)
         result = addClass_dialog.exec()
@@ -397,6 +465,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.reload_classes_data()
 
     def load_classes_info(self):
+        """
+        load class info and put into display
+        """
         print("Loading all class data...")
         self.classTableWidget.setRowCount(0)
         data = self.get_class_data_from_table()
@@ -412,21 +483,30 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
             self.classTableWidget.setRowHeight(row_index, 50)
 
     def get_class_data_from_table(self):
+        """
+        fetch class data
+        """
         data = get_class_for_display_table()
         return data
 
     def reload_classes_data(self):
+        """
+        reload table display
+        """
         print("reload class data")
         self.classTableWidget.clearContents()
         self.load_classes_info()
 
     def search_class(self):
+        """
+        search bar logic
+        """
         self.classTableWidget.setRowCount(0)
         query = self.classSearchBarEdit.text()
         if query == "":
             self.reload_classes_data()
         else:
-            data = search_course(query)
+            data = search_class(query)
             for row_index, row_data in enumerate(data):
                 self.classTableWidget.insertRow(row_index)
                 for col_index, cell_data in enumerate(row_data):
@@ -439,6 +519,9 @@ class LecturerMainScreen(QMainWindow, Ui_MainWindow):
                 self.classTableWidget.setRowHeight(row_index, 50)
 
 class DoubleButtonWidgetStudents(QWidget):
+    """
+    Action button class
+    """
     def __init__(self, row_index, row_data, lecturerMainScreen):
         super().__init__()
 
@@ -466,6 +549,9 @@ class DoubleButtonWidgetStudents(QWidget):
         self.delete_button.clicked.connect(self.delete_clicked)
 
     def edit_clicked(self):
+        """
+        open edit dialog
+        """
         from update_student_dialog import Ui_update_student_dialog
         self.update_dialog = Ui_update_student_dialog(self.row_index, self.row_data)
 
@@ -475,6 +561,9 @@ class DoubleButtonWidgetStudents(QWidget):
         self.update_dialog.exec()
 
     def delete_clicked(self):
+        """
+        delete chosen record
+        """
         message = QMessageBox.question(
             self,
             'Xác nhận', 'Bạn có chắc chắn muốn xóa học sinh này không ?',
@@ -487,6 +576,9 @@ class DoubleButtonWidgetStudents(QWidget):
         self.lecturerMainScreen.reload_data()
 
 class DoubleButtonWidgetLecturers(QWidget):
+    """
+    Action button class
+    """
     def __init__(self, row_index, row_data, lecturerMainScreen):
         super().__init__()
 
@@ -513,6 +605,9 @@ class DoubleButtonWidgetLecturers(QWidget):
         self.edit_button.clicked.connect(self.edit_clicked)
         self.delete_button.clicked.connect(self.delete_clicked)
     def edit_clicked(self):
+        """
+        open edit dialog
+        """
         from update_lecturer_dialog import Ui_update_lecturer_dialog
         self.update_lecturer_dialog = Ui_update_lecturer_dialog(self.row_index, self.row_data)
 
@@ -522,6 +617,9 @@ class DoubleButtonWidgetLecturers(QWidget):
         self.update_lecturer_dialog.exec()
 
     def delete_clicked(self):
+        """
+        delete chosen record
+        """
         message = QMessageBox.question(
             self,
             'Xác nhận', 'Bạn có chắc chắn muốn xóa giảng viên này không ?',
@@ -534,6 +632,9 @@ class DoubleButtonWidgetLecturers(QWidget):
         self.lecturerMainScreen.reload_lecturer_data()
 
 class DoubleButtonWidgetMajors(QWidget):
+    """
+    Action button class
+    """
     def __init__(self, row_index, row_data, lecturerMainScreen):
         super().__init__()
 
@@ -561,6 +662,9 @@ class DoubleButtonWidgetMajors(QWidget):
         self.delete_button.clicked.connect(self.delete_clicked)
 
     def edit_clicked(self):
+        """
+        open edit dialog
+        """
         from update_major_dialog import Ui_update_major_dialog
         self.update_major_dialog = Ui_update_major_dialog(self.row_index, self.row_data)
 
@@ -570,6 +674,9 @@ class DoubleButtonWidgetMajors(QWidget):
         self.update_major_dialog.exec()
 
     def delete_clicked(self):
+        """
+        delete chosen record
+        """
         message = QMessageBox.question(
             self,
             'Xác nhận', 'Bạn có chắc chắn muốn xóa ngành này không ?',
@@ -582,6 +689,9 @@ class DoubleButtonWidgetMajors(QWidget):
         self.lecturerMainScreen.reload_majors_data()
 
 class DoubleButtonWidgetCourses(QWidget):
+    """
+    Action button class
+    """
     def __init__(self, row_index, row_data, lecturerMainScreen):
         super().__init__()
 
@@ -609,6 +719,9 @@ class DoubleButtonWidgetCourses(QWidget):
         self.delete_button.clicked.connect(self.delete_clicked)
 
     def edit_clicked(self):
+        """
+        open edit dialog
+        """
         from update_course_dialog import Ui_update_course_dialog
         self.update_course_dialog = Ui_update_course_dialog(self.row_index, self.row_data)
 
@@ -618,6 +731,9 @@ class DoubleButtonWidgetCourses(QWidget):
         self.update_course_dialog.exec()
 
     def delete_clicked(self):
+        """
+        delete chosen record
+        """
         message = QMessageBox.question(
             self,
             'Xác nhận', 'Bạn có chắc chắn muốn xóa môn học này không ?',
@@ -630,6 +746,9 @@ class DoubleButtonWidgetCourses(QWidget):
         self.lecturerMainScreen.reload_courses_data()
 
 class DoubleButtonWidgetClasses(QWidget):
+    """
+    Action button class
+    """
     def __init__(self, row_index, row_data, lecturerMainScreen):
         super().__init__()
 
@@ -657,6 +776,9 @@ class DoubleButtonWidgetClasses(QWidget):
         self.delete_button.clicked.connect(self.delete_clicked)
 
     def edit_clicked(self):
+        """
+        open edit dialog
+        """
         from update_class_dialog import Ui_update_class_dialog
         self.update_class_dialog = Ui_update_class_dialog(self.row_index, self.row_data)
 
@@ -666,6 +788,9 @@ class DoubleButtonWidgetClasses(QWidget):
         self.update_class_dialog.exec()
 
     def delete_clicked(self):
+        """
+        delete chosen record
+        """
         message = QMessageBox.question(
             self,
             'Xác nhận', 'Bạn có chắc chắn muốn xóa lớp này không ?',

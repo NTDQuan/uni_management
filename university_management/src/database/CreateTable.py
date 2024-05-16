@@ -7,6 +7,9 @@ from model.Model import Base
 print("CREATING TABLES >>>> ")
 
 def create_all_table():
+    """
+    initialize all table
+    """
     try:
         with engine.connect() as connection:
             result = connection.execute(text('select "Hello"'))

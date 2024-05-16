@@ -10,9 +10,19 @@ from university_management.src.config import state
 
 
 class Authentication:
+    """Class handle authentication"""
     def __init__(self):
         self.__role = None
     def authentication(self, username, password):
+        """
+        Args:
+            username(string): user name
+            password(string): password
+
+        Returns:
+            int: The login state
+
+        """
         result = session.query(User).filter(User.user_id == username).first()
         print("Login")
         if result is None:

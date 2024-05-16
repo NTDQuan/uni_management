@@ -7,6 +7,9 @@ from university_management.src.controller.authentication.Authenticator import Au
 from university_management.src.view.loadLecturerMS import LecturerMainScreen
 
 class LoginView(QWidget):
+    """
+    Login screen GUI
+    """
     def __init__(self):
         super().__init__()
         self.authenticator = Authentication()
@@ -58,6 +61,9 @@ class LoginView(QWidget):
         self.main_layout.addWidget(self.right_half_widget)
 
     def openMainScreen(self):
+        """
+        open main screen if login successfully
+        """
         if self.main_screen is None:  # If the main screen instance doesn't exist, create it
             self.main_screen = LecturerMainScreen()
         self.hide()
@@ -65,6 +71,9 @@ class LoginView(QWidget):
   # Hide the login screen
 
     def handleLoginButtonClick(self):
+        """
+        login button logic
+        """
         loginInfo = [self.usernameLineEdit.text(), self.passwordLineEdit.text()]
         response = self.authenticator.authentication(self.usernameLineEdit.text(), self.passwordLineEdit.text())
         print(response)

@@ -17,6 +17,9 @@ from university_management.src.controller.major_management.get_major import get_
 
 
 class Ui_update_major_dialog(QDialog):
+    """
+    update major dialog GUI
+    """
     data_updated = pyqtSignal()
     def __init__(self, row_index, row_data):
         super().__init__()
@@ -137,6 +140,9 @@ class Ui_update_major_dialog(QDialog):
         self.update_Btn.clicked.connect(self.update_major)
 
     def update_major(self):
+        """
+        update major button logic
+        """
         params = self.update_majorNameEdit.text()
         editMajor(self.major_id_info, params)
         self.show_updated_message()
@@ -144,6 +150,9 @@ class Ui_update_major_dialog(QDialog):
         self.close()
 
     def show_updated_message(self):
+        """
+         show update message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã sửa thành công")

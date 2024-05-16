@@ -9,6 +9,14 @@ from university_management.src.util.getFirstAndLastName import getFirstAndLastNa
 
 
 def get_student_for_display_table(major_filter, gender_filter):
+    """
+    fetch student data to present in GUI
+    args:
+        major_filter(int): selected major id
+        gender_filter(int): selected gender id
+    return:
+        result(list): contain all record
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     # Define columns to be selected
@@ -30,6 +38,13 @@ def get_student_for_display_table(major_filter, gender_filter):
     return result
 
 def get_full_student_info(studentId):
+    """
+    get all column in major table
+    arg:
+        studentId(int): selected student id
+    return:
+        result(list): contain all info about selected student
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Student.student_id, Student.first_name, Student.last_name, Student.telephone, Student.address, Gender.gender_name, Major.major_name]
@@ -41,6 +56,14 @@ def get_full_student_info(studentId):
 
 
 def search_student(input_query):
+    """
+    search for student with student id or student name
+    args:
+        input_query(str): query
+    return:
+        result(list): search result
+
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Student.student_id, func.concat(Student.last_name, " ", Student.first_name).label("full_name"),
@@ -55,6 +78,14 @@ def search_student(input_query):
     return result
 
 def get_lecturer_for_display_table(major_filter, gender_filter):
+    """
+    fetch lecturer data to present in GUI
+    args:
+        major_filter(int): selected major id
+        gender_filter(int): selected gender id
+    return:
+        result(list): contain all record
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     # Define columns to be selected
@@ -76,6 +107,13 @@ def get_lecturer_for_display_table(major_filter, gender_filter):
     return result
 
 def get_full_lecturer_info(lecturerId):
+    """
+    get all column in lecturer table
+    arg:
+        lecturerId(int): selected lecturer id
+    return:
+        result(list): contain all info about selected lecturer
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Lecturer.lecturer_id, Lecturer.first_name, Lecturer.last_name, Lecturer.telephone, Lecturer.address, Gender.gender_name, Major.major_name]
@@ -86,6 +124,13 @@ def get_full_lecturer_info(lecturerId):
     return result
 
 def get_lecturer_id(lecturer_name):
+    """
+    convert lecturer name into lecturer id
+    args:
+        lecturer_name(str): lecturer name
+    return:
+        result.lecturer_id(int): lecturer id
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     print("Get lecturer id...")
@@ -96,6 +141,9 @@ def get_lecturer_id(lecturer_name):
     return result.lecturer_id
 
 def get_all_lecturer():
+    """
+    get all lecturer name
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(Lecturer).all()
@@ -106,6 +154,14 @@ def get_all_lecturer():
     return lecturer_list
 
 def search_lecturer(input_query):
+    """
+    search for lecturer with lecturer id or lecturer name
+    args:
+        input_query(str): query
+    return:
+        result(list): search result
+
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Lecturer.lecturer_id, Lecturer.first_name, Lecturer.last_name, Lecturer.telephone, Lecturer.address, Gender.gender_name, Major.major_name]

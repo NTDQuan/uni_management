@@ -5,6 +5,12 @@ from university_management.src.model.Model import Class
 
 
 def editClass(classID, class_data):
+    """
+    Edit a class record
+    Arg:
+        classID(int): class id for finding record
+        class_data(dict): contain new info to update record
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     selected_class = session.query(Class).get(classID)

@@ -20,7 +20,9 @@ from university_management.src.util.getGenderId import get_gender_id
 
 
 class Ui_update_student_dialog(QDialog):
-
+    """
+    update student dialog GUI
+    """
     data_updated = pyqtSignal()
 
     def __init__(self, row_index, row_data):
@@ -239,6 +241,9 @@ class Ui_update_student_dialog(QDialog):
 
 
     def update_student(self):
+        """
+        update student button logic
+        """
         new_last_name ,new_first_name = getFirstAndLastName(self.update_studentNameEdit.text())
         params = {
             "new_id": self.update_studentIDEdit.text(),
@@ -258,6 +263,9 @@ class Ui_update_student_dialog(QDialog):
         self.close()
 
     def show_updated_message(self):
+        """
+         show update message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã sửa thành công")

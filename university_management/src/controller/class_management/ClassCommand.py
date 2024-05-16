@@ -5,12 +5,17 @@ from .remove_class import delete_class
 
 
 class ClassCommand(ABC):
-
+    """
+    Abstract class for command
+    """
     @abstractmethod
     def execute(self) -> None:
         pass
 
 class CreateClassCommand(ClassCommand):
+    """
+    Create command
+    """
     def __init__(self, class_data: dict):
         self.class_data = class_data
 
@@ -18,6 +23,9 @@ class CreateClassCommand(ClassCommand):
         add_class(self.class_data)
 
 class DeleteClassCommand(ClassCommand):
+    """
+    Handle delete class command
+    """
     def __init__(self, classID):
         self.classID = classID
 
@@ -25,6 +33,9 @@ class DeleteClassCommand(ClassCommand):
         delete_class(self.classID)
 
 class Invoker:
+    """
+    Invoker
+    """
     _on_start = None
     _on_finish = None
 

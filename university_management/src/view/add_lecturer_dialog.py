@@ -20,6 +20,9 @@ from university_management.src.util.getGenderId import get_gender_id
 
 
 class Ui_add_lecturer_dialog(QDialog):
+    """
+    add lecturer dialog
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("Dialog")
@@ -213,6 +216,9 @@ class Ui_add_lecturer_dialog(QDialog):
 
 
     def getInfo(self):
+        """
+        get user input
+        """
         print("Get info...")
         user_info = {
             "User_id": self.lecturerIDEdit.text(),
@@ -234,6 +240,9 @@ class Ui_add_lecturer_dialog(QDialog):
         return user_info, lecturer_info
 
     def add_new_lecturer(self):
+        """
+        add new lecturer
+        """
         user_info, lecturer_info = self.getInfo()
         if not self.isUserExist(user_info["User_id"]):
             print("add new lecturer...")
@@ -244,6 +253,14 @@ class Ui_add_lecturer_dialog(QDialog):
             self.show_added_message()
 
     def isUserExist(self, userID):
+        """
+        check if user id already exist in database
+        args:
+            userID(int)
+        return
+            True if user is exist
+            False if user is not exist
+        """
         user = session.query(User).get(userID)
         if user:
             return True
@@ -251,6 +268,9 @@ class Ui_add_lecturer_dialog(QDialog):
             return False
 
     def show_added_message(self):
+        """
+        create message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã thêm thành công")
@@ -258,6 +278,9 @@ class Ui_add_lecturer_dialog(QDialog):
 
 
     def add_lecturer(self):
+        """
+        add lecturer and emit signal
+        """
         self.add_new_lecturer()
         self.accept()
 

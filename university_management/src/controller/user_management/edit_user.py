@@ -3,6 +3,12 @@ from model.Model import User, Student, Lecturer
 from sqlalchemy.exc import IntegrityError
 
 def studentUpdate(userID, user_data):
+    """
+    Edit a student record
+    Arg:
+        userID(int): student id for finding record
+        user_data(dict): contain new info to update record
+    """
     user = session.query(User).get(userID)
     user.email = user_data["new_email"]
     student = session.query(Student).get(userID)
@@ -16,6 +22,12 @@ def studentUpdate(userID, user_data):
     session.commit()
 
 def lecturerUpdate(userID, user_data):
+    """
+    Edit a lecturer record
+    Arg:
+        userID(int): lecturer id for finding record
+        user_data(dict): contain new info to update record
+    """
     user = session.query(User).get(userID)
     user.email = user_data["new_email"]
     lecturer = session.query(Lecturer).get(userID)
@@ -29,6 +41,9 @@ def lecturerUpdate(userID, user_data):
     session.commit()
 
 def editStudent(userID, user_data):
+    """
+    implement
+    """
     try:
         # Update student record first
         studentUpdate(userID, user_data)
@@ -39,6 +54,9 @@ def editStudent(userID, user_data):
         raise e  # Re-raise the exception
 
 def editLecturer(userID, user_data):
+    """
+    implement
+    """
     try:
         lecturerUpdate(userID, user_data)
         session.commit()

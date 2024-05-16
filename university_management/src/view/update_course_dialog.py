@@ -19,6 +19,9 @@ from university_management.src.controller.major_management.get_major import get_
 
 
 class Ui_update_course_dialog(QDialog):
+    """
+    update course dialog GUI
+    """
     data_updated = pyqtSignal()
 
     def __init__(self, row_index, row_data):
@@ -206,6 +209,9 @@ class Ui_update_course_dialog(QDialog):
         self.update_major.majorListUpdated.connect(self.update_major_comboBox)
 
     def update_course(self):
+        """
+        update course button logic
+        """
         params = {
             "course_id": self.course_id_info,
             "course_name": self.courseNameEdit.text(),
@@ -220,12 +226,18 @@ class Ui_update_course_dialog(QDialog):
         self.close()
 
     def show_updated_message(self):
+        """
+        show update message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã sửa thành công")
         msg_box.exec()
 
     def update_major_comboBox(self, new_major_list):
+        """
+        update major selection if major table change
+        """
         self.courseMajor_comboBox.clear()
         for major in new_major_list:
             self.courseMajor_comboBox.addItem(major)

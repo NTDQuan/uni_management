@@ -6,6 +6,9 @@ from university_management.src.model.Model import Class
 
 
 def delete_class(classID: int) -> None:
+    """
+    delete class from database
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     deleted_class = session.query(Class).get(classID)

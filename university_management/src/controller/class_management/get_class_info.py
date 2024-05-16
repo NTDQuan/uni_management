@@ -6,6 +6,9 @@ from university_management.src.model.Model import Class, Lecturer, Course
 
 
 def get_class_for_display_table():
+    """
+    Get class to display on GUI
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -18,6 +21,9 @@ def get_class_for_display_table():
     return result
 
 def get_full_class_info(classId):
+    """
+    Get all column in class table
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -29,7 +35,10 @@ def get_full_class_info(classId):
     session.close()
     return result
 
-def search_course(input_query):
+def search_class(input_query):
+    """
+    Search for class with course name or course id
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Class.class_id, Class.class_name, Class.semester, Class.year, func.concat(Lecturer.last_name, " ", Lecturer.first_name).label("full_name"), Course.course_name, Class.status, Class.start_period, Class.end_period, Class.day]

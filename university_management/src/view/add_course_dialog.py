@@ -20,6 +20,9 @@ from university_management.src.model.Model import User, Course
 
 
 class Ui_add_course_dialog(QDialog):
+    """
+    add course dialog
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("Dialog")
@@ -184,6 +187,9 @@ class Ui_add_course_dialog(QDialog):
         self.cancel_Btn.clicked.connect(self.close)
 
     def getInfo(self):
+        """
+        get user input
+        """
         print("Get info...")
         course_info = {
             "course_id": self.courseIDEdit.text(),
@@ -195,6 +201,9 @@ class Ui_add_course_dialog(QDialog):
         return course_info
 
     def add_new_course(self):
+        """
+        add new course
+        """
         course_info = self.getInfo()
         if not self.isCourseExist(course_info["course_id"]):
             print("add new course...")
@@ -205,6 +214,14 @@ class Ui_add_course_dialog(QDialog):
             self.show_added_message()
 
     def isCourseExist(self, courseID):
+        """
+        check if course id already exist in database
+        args:
+            courseID(str)
+        return
+            True if course is exist
+            False if course is not exist
+        """
         Session = sessionmaker(bind=engine)
         session = Session()
         course = session.query(Course).get(courseID)
@@ -215,11 +232,17 @@ class Ui_add_course_dialog(QDialog):
             return False
 
     def show_added_message(self):
+        """
+        create message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã thêm thành công")
         msg_box.exec()
 
     def add_course(self):
+        """
+        add course and emit signal
+        """
         self.add_new_course()
         self.accept()

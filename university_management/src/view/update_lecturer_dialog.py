@@ -20,6 +20,9 @@ from university_management.src.util.getGenderId import get_gender_id
 
 
 class Ui_update_lecturer_dialog(QDialog):
+    """
+    update lecturer dialog GUI
+    """
     data_updated = pyqtSignal()
 
     def __init__(self, row_index, row_data):
@@ -239,6 +242,9 @@ class Ui_update_lecturer_dialog(QDialog):
         self.update_major.majorListUpdated.connect(self.update_major_comboBox)
 
     def update_lecturer(self):
+        """
+        update lecturer button logic
+        """
         new_last_name ,new_first_name = getFirstAndLastName(self.update_lecturerNameEdit.text())
         params = {
             "new_id": self.update_lecturerIDEdit.text(),
@@ -258,12 +264,18 @@ class Ui_update_lecturer_dialog(QDialog):
         self.close()
 
     def show_updated_message(self):
+        """
+         show update message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã sửa thành công")
         msg_box.exec()
 
     def update_major_comboBox(self, new_major_list):
+        """
+        update major selection if major table change
+        """
         self.update_lecturer_major_comboBox.clear()
         for major in new_major_list:
             self.update_lecturer_major_comboBox.addItem(major)

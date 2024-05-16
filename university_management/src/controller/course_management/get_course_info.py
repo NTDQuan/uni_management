@@ -6,6 +6,9 @@ from university_management.src.model.Model import Course, Major
 
 
 def get_course_for_display_table():
+    """
+    get id, name, credit, major column from course table to display in GUI
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -18,6 +21,9 @@ def get_course_for_display_table():
     return result
 
 def get_full_course_info(courseId):
+    """
+    get all column of course table
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -30,6 +36,13 @@ def get_full_course_info(courseId):
     return result
 
 def get_course_id(course_name):
+    """
+    convert course name to course id
+    Args:
+        course_name(str)
+    return
+        int: course id
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     print("Get course id...")
@@ -39,6 +52,9 @@ def get_course_id(course_name):
     return result.course_id
 
 def get_all_course():
+    """
+    get all the course name
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(Course).all()
@@ -49,6 +65,9 @@ def get_all_course():
     return course_list
 
 def search_course(input_query):
+    """
+    search for course
+    """
     Session = sessionmaker(bind=engine)
     session = Session()
     columns = [Course.course_id, Course.course_name, Course.course_credit, Major.major_name]

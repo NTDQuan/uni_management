@@ -18,6 +18,9 @@ from university_management.src.model.Model import Major
 
 
 class Ui_add_major_dialog(QDialog):
+    """
+    add major dialog
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("add_major_dialog")
@@ -126,6 +129,9 @@ class Ui_add_major_dialog(QDialog):
         self.cancel_Btn.clicked.connect(self.close)
 
     def getInfo(self):
+        """
+        get user input
+        """
         print("Get info...")
         major_info = {
             "major_id": self.generate_majorID(),
@@ -134,6 +140,9 @@ class Ui_add_major_dialog(QDialog):
         return major_info
 
     def add_new_major(self):
+        """
+        add new major
+        """
         major_info = self.getInfo()
         print("add new lecturer...")
         invoker = Invoker()
@@ -143,6 +152,9 @@ class Ui_add_major_dialog(QDialog):
         self.show_added_message()
 
     def generate_majorID(self):
+        """
+        generate random class id (1-1000)
+        """
         majorID = randint(1, 1000)
         major = session.query(Major).get(majorID)
         if major:
@@ -151,12 +163,18 @@ class Ui_add_major_dialog(QDialog):
             return majorID
 
     def show_added_message(self):
+        """
+          create message
+          """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã thêm thành công")
         msg_box.exec()
 
     def add_major(self):
+        """
+        add major and emit signal
+        """
         self.add_new_major()
         self.accept()
         print("Send accept signal")

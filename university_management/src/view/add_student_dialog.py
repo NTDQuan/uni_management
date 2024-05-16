@@ -20,6 +20,9 @@ from university_management.src.util.getGenderId import get_gender_id
 
 
 class Ui_add_student_dialog(QDialog):
+    """
+    add student dialog
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("add_student_dialog")
@@ -216,6 +219,9 @@ class Ui_add_student_dialog(QDialog):
 
 
     def getInfo(self):
+        """
+        get user input
+        """
         print("Get info...")
         user_info = {
             "User_id": self.studentIDEdit.text(),
@@ -239,6 +245,9 @@ class Ui_add_student_dialog(QDialog):
         return user_info, student_info
 
     def add_new_student(self):
+        """
+        add new student
+        """
         user_info, student_info = self.getInfo()
         if not self.isUserExist(user_info["User_id"]):
             print("add new student...")
@@ -249,6 +258,14 @@ class Ui_add_student_dialog(QDialog):
             self.show_added_message()
 
     def isUserExist(self, userID):
+        """
+        check if user id already exist in database
+        args:
+            userID(int)
+        return
+            True if user is exist
+            False if user is not exist
+        """
         user = session.query(User).get(userID)
         if user:
             return True
@@ -256,6 +273,9 @@ class Ui_add_student_dialog(QDialog):
             return False
 
     def show_added_message(self):
+        """
+        create message
+        """
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle("Success")
         msg_box.setText("Đã thêm thành công")
@@ -263,5 +283,8 @@ class Ui_add_student_dialog(QDialog):
 
 
     def add_student(self):
+        """
+        add student and emit signal
+        """
         self.add_new_student()
         self.accept()

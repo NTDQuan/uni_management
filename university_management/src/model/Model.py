@@ -9,6 +9,9 @@ Base = declarative_base()
 
 
 class Role(Base):
+    """
+    role table
+    """
     __tablename__ = "role"
 
     role_id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -17,6 +20,9 @@ class Role(Base):
 
 
 class User(Base):
+    """
+    user table
+    """
     __tablename__ = "user"
 
     user_id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -28,6 +34,9 @@ class User(Base):
     role: Mapped["Role"] = relationship(back_populates="users")
 
 class Gender(Base):
+    """
+    gender table
+    """
     __tablename__ = "gender"
 
     gender_id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -36,6 +45,9 @@ class Gender(Base):
     lecturers: Mapped[List["Lecturer"]] = relationship(back_populates="gender")
 
 class Major(Base):
+    """
+    major table
+    """
     __tablename__ = "major"
 
     major_id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -45,6 +57,9 @@ class Major(Base):
     course: Mapped[List["Course"]] = relationship(back_populates="major")
 
 class Student(Base):
+    """
+    student table
+    """
     __tablename__ = "student"
 
     student_id: Mapped[int] = mapped_column(ForeignKey("user.user_id") ,primary_key=True, onupdate="CASCADE")
@@ -62,6 +77,9 @@ class Student(Base):
     major: Mapped["Major"] = relationship(back_populates="students")
 
 class Lecturer(Base):
+    """
+    lecturer table
+    """
     __tablename__ = "lecturer"
 
     lecturer_id: Mapped[int] = mapped_column(ForeignKey("user.user_id"), primary_key=True)
@@ -78,6 +96,9 @@ class Lecturer(Base):
     class_id: Mapped[List["Class"]] = relationship(back_populates="rclass")
 
 class Course(Base):
+    """
+    course table
+    """
     __tablename__ = "course"
 
     course_id: Mapped[str] = mapped_column(String(50), primary_key=True)
@@ -88,6 +109,9 @@ class Course(Base):
     cclass: Mapped[List["Class"]] = relationship(back_populates="course")
 
 class Class(Base):
+    """
+    class table
+    """
     __tablename__ = "class"
 
     class_id: Mapped[int] = mapped_column(primary_key=-True)
